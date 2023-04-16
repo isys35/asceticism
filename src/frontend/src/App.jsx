@@ -1,7 +1,7 @@
-import Routes from "./Routes";
+import Login from "./views/Login.jsx";
 
-function App() {
-  return <Routes />;
-}
+const App = () => {
+  return <Login/ >;
+};
 
 export default App;
