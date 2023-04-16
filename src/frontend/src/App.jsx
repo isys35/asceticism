@@ -1,7 +1,8 @@
-import Login from "./views/Login.jsx";
+import AppRoutes from "./Routes.jsx";
+import { Component } from "react";
 
-const App = () => {
-  return <Login/ >;
-};
-
-export default App;
+export default class App extends Component {
+  render() {
+    return <AppRoutes/ >;
+  }
+}

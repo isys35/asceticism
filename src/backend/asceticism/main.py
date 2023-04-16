@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends
+from starlette.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 import uvicorn
 
@@ -10,6 +11,8 @@ from asceticism.core.auth import get_current_active_user
 
 app = FastAPI(title=config.PROJECT_NAME, docs_url="/api/docs", openapi_url="/api")
 
+origins = ["*"]
+
 
 @app.middleware("http")
 async def db_session_middleware(request: Request, call_next):
@@ -18,6 +21,14 @@ async def db_session_middleware(request: Request, call_next):
     request.state.db.close()
     return response
 
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Routers
 app.include_router(
