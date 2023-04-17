@@ -1,17 +1,19 @@
 import { InputText } from "primereact/inputtext";
 import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
-import  { useState } from "react";
+import { useRef, useState} from "react";
 import { login } from "../auth/auth.js";
 import classNames from "classnames";
 import { useNavigate } from "react-router";
+import { Toast } from "primereact/toast";
+
 function Login() {
   const [checked, setChecked] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   let navigate = useNavigate();
-
+  const toast = useRef(null);
 
   const errorClass = classNames({
     "p-invalid": error,
@@ -28,34 +30,39 @@ function Login() {
       if (error instanceof Error) {
         // handle errors thrown from frontend
         setError(error.message);
+        showError();
       } else {
         // handle errors thrown from backend
         setError(String(error));
       }
     }
   };
+  
+  const showError = () => {
+    toast.current.show({severity:"error", summary: "Ошибка", detail: error, life: 3000});
+  };
 
   return (
     <div className="flex align-items-center justify-content-center h-screen">
+      <Toast ref={toast} />
       <div className="surface-card p-4 shadow-2 border-round w-full lg:w-6">
         <div className="text-center mb-5">
           <div className="text-900 text-3xl font-medium mb-3">ASCETICISM</div>
         </div>
-        <div>{error}</div>
         <div>
           <label htmlFor="email" className="block text-900 font-medium mb-2">Email</label>
           <InputText
             id="email"
             type="text"
-            placeholder="Email address" 
+            placeholder="Email"
             className={"w-full mb-3 " + errorClass}
             onChange={(event) => setEmail(event.currentTarget.value)}
           />
 
-          <label htmlFor="password" className="block text-900 font-medium mb-2">Password</label>
+          <label htmlFor="password" className="block text-900 font-medium mb-2">Пароль</label>
           <InputText 
             type="password"
-            placeholder="Password"
+            placeholder="Пароль"
             className={"w-full mb-3 " + errorClass}
             onChange={(event) => setPassword(event.currentTarget.value)}
 
