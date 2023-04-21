@@ -62,3 +62,15 @@ def edit_user(db: Session, user_id: int, user: schemas.UserEdit) -> schemas.User
     db.commit()
     db.refresh(db_user)
     return db_user
+
+
+def create_ascesa(db: Session, ascesa: schemas.Ascesa, current_user: schemas.User):
+    db_acsesa = models.Ascesa(
+        name=ascesa.name,
+        started_at=ascesa.started_at,
+        user_id=current_user.id,
+    )
+    db.add(db_acsesa)
+    db.commit()
+    db.refresh(db_acsesa)
+    return db_acsesa

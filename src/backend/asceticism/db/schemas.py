@@ -1,3 +1,5 @@
+from datetime import date
+
 from pydantic import BaseModel
 
 
@@ -42,3 +44,11 @@ class Token(BaseModel):
 class TokenData(BaseModel):
     email: str = None
     permissions: str = "user"
+
+
+class Ascesa(BaseModel):
+    name: str
+    started_at: date
+
+    class Config:
+        orm_mode = True

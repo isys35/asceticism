@@ -3,6 +3,7 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 import uvicorn
 
+from asceticism.api.api_v1.routers.asces import asces_router
 from asceticism.api.api_v1.routers.users import users_router
 from asceticism.api.api_v1.routers.auth import auth_router
 from asceticism.core import config
@@ -37,6 +38,7 @@ app.include_router(
     dependencies=[Depends(get_current_active_user)],
 )
 app.include_router(auth_router, tags=["auth"])
+app.include_router(asces_router, tags=["asces"])
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", reload=True, port=8888)
