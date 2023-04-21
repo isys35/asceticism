@@ -2,6 +2,7 @@ import {BrowserRouter as Router, Route, Routes, useRouteError} from "react-route
 import Login from "../views/Login.jsx";
 import Home from "../views/Home.jsx";
 import { PrivateRoute } from "./PrivateRoute.jsx";
+import CreateAscesis from "../views/ascesis/CreateAscesis.jsx";
 
 function AppRoutes() {
   return (
@@ -10,6 +11,7 @@ function AppRoutes() {
         <Route path="login" element={<Login/>} errorElement={<ErrorBoundary />}/>
         <Route element={<PrivateRoute />}>
           <Route path="/" element={<Home/>}/>
+          <Route path="create-ascesis" element={<CreateAscesis/>}/>
         </Route>
       </Routes>
     </Router>

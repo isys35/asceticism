@@ -1,11 +1,12 @@
 import { InputText } from "primereact/inputtext";
 import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
-import { useRef, useState} from "react";
-import { login } from "../auth/auth.js";
+import React, { useRef, useState} from "react";
+import { isAuthenticated, login } from "../auth/auth.js";
 import classNames from "classnames";
 import { useNavigate } from "react-router";
 import { Toast } from "primereact/toast";
+import { Navigate } from "react-router-dom";
 
 function Login() {
   const [checked, setChecked] = useState(false);
@@ -41,6 +42,9 @@ function Login() {
   const showError = () => {
     toast.current.show({severity:"error", summary: "Ошибка", detail: error, life: 3000});
   };
+  if (isAuthenticated()) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="flex align-items-center justify-content-center h-screen">

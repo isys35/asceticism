@@ -1,11 +1,13 @@
-import {isAuthenticated} from "../auth/auth.js";
+import { Link } from "react-router-dom";
+import { Button } from "primereact/button";
 
 function Home() {
   return (
-    <div>{isAuthenticated() ? <p>Вход выполнен</p> : <p>Не выполнен</p>}
-      <div>Домашняя страница</div>
+    <div className="layout-main">
+      <Link to="create-ascesis">
+        <Button label="Создать Аскезу" to="create_ascesis"/>
+      </Link>
     </div>
-    
   );
 }
 
