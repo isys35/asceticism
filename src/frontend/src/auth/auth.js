@@ -55,3 +55,9 @@ export const login = async (email, password) => {
 
   return data;
 };
+
+
+export const logout = () => {
+  localStorage.clear();
+  window.location.replace("/");
+};
