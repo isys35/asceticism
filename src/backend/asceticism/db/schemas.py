@@ -48,6 +48,7 @@ class TokenData(BaseModel):
 
 class Ascesa(BaseModel):
     name: str
+    days: int
     started_at: date
 
     class Config:

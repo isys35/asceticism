@@ -10,7 +10,7 @@ asces_router = router = APIRouter(prefix="/api/v1")
 
 
 @router.post("/asces", response_model=Ascesa, response_model_exclude_none=True)
-async def user_create(
+async def ascesa_create(
     request: Request,
     ascesa: Ascesa,
     db=Depends(get_db),
