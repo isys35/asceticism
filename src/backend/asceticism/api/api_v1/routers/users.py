@@ -27,8 +27,7 @@ async def users_list(
     """
     Get all users
     """
-    users = get_users(db)
-    return users
+    return get_users(db)
 
 
 @router.get("/users/me", response_model=User, response_model_exclude_none=True)
