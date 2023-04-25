@@ -5,7 +5,6 @@ from sqlalchemy import pool
 
 from alembic import context
 
-
 from asceticism.core.config import SQLALCHEMY_DATABASE_URI
 from asceticism.db.models import Base
 
@@ -65,7 +64,6 @@ def run_migrations_online() -> None:
 
     """
     alembic_config = config.get_section(config.config_ini_section)
-    print(alembic_config)
     connectable = engine_from_config(
         config.get_section(config.config_ini_section, {}),
         prefix="sqlalchemy.",
@@ -73,7 +71,12 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
-        context.configure(connection=connection, target_metadata=target_metadata)
+        context.configure(
+            connection=connection,
+            target_metadata=target_metadata,
+            compare_type=True,
+            compare_server_default=True
+        )
 
         with context.begin_transaction():
             context.run_migrations()

@@ -2,8 +2,11 @@ import { ConfirmPopup, confirmPopup } from "primereact/confirmpopup";
 import { logout } from "../auth/auth.js";
 import { Menubar } from "primereact/menubar";
 import { Outlet } from "react-router-dom";
+import { useRef } from "react";
+import { Toast } from "primereact/toast";
 
 function Base() {
+  const toast = useRef(null);
   const menu = [
     {
       label: "Выход",
@@ -23,8 +26,9 @@ function Base() {
   return (
     <>
       <Menubar model={menu} />
+      <Toast ref={toast} />
       <ConfirmPopup />
-      <Outlet />
+      <Outlet context={toast} />
     </>
   );
 }

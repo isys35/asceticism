@@ -11,9 +11,10 @@ import "primeflex/primeflex.css";
 
 //icons
 import "primeicons/primeicons.css";
-import AppRoutes from "./router/Routes.jsx";
 
 import { LOCALE } from "./config.js";
+import { RouterProvider } from "react-router";
+import router from "./router/Routes.jsx";
 
 // locale
 addLocale("ru", LOCALE);
@@ -23,6 +24,6 @@ locale("ru");
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <AppRoutes />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );

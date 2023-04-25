@@ -59,5 +59,5 @@ export const login = async (email, password) => {
 
 export const logout = () => {
   localStorage.clear();
-  window.location.replace("/");
+  window.location.replace("/login");
 };

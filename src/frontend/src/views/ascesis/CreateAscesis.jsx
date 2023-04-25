@@ -9,8 +9,7 @@ import * as Yup from "yup";
 import { REQUIRED_MESSAGE } from "../../config.js";
 import { API } from "../../api.js";
 import React from "react";
-import { useNavigate } from "react-router";
-import PropTypes from "prop-types";
+import { useNavigate, useOutletContext } from "react-router";
  
 const CreateAscesisSchema = Yup.object().shape({
   name: Yup.string()
@@ -24,7 +23,8 @@ const CreateAscesisSchema = Yup.object().shape({
     .required(REQUIRED_MESSAGE)
 });
 
-function CreateAscesis({ toast }) {
+function CreateAscesis() {
+  const toast = useOutletContext();
   const [started_at] = React.useState(new Date());
   let navigate = useNavigate();
 
@@ -32,7 +32,7 @@ function CreateAscesis({ toast }) {
     initialValues: {
       name: "",
       started_at: started_at,
-      days: 1,
+      days: 100,
     },
     validationSchema: CreateAscesisSchema,
     onSubmit: values => {
@@ -90,10 +90,6 @@ function CreateAscesis({ toast }) {
     </Card>
   );
 }
-
-CreateAscesis.propTypes = {
-  toast: PropTypes.object
-};
 
 
 export default CreateAscesis;
