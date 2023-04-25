@@ -1,0 +1,19 @@
+@use 'sass:map';
+//theme
+@import "primereact/resources/themes/viva-dark/theme.css";
+
+//core
+@import "primereact/resources/primereact.min.css";
+
+@import "styles/prime_sizes.scss";
+@import "primeflex/primeflex.scss";
+
+
+//icons
+@import "primeicons/primeicons.css";
+
+
+.p-inline-message .p-inline-message-text {
+  flex-grow: 1;
+  text-align: center;
+}
