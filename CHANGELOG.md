@@ -1,3 +1,12 @@
+## 0.0.8 (2023-04-25)
+
+### Fix
+
+- asces list
+- add menu
+- create ascesa
+- add count days
+
 ## 0.0.7 (2023-04-21)
 
 ### Fix
