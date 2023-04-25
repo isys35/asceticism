@@ -1,5 +1,4 @@
 import { InputText } from "primereact/inputtext";
-import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
 import React, { useRef, useState} from "react";
 import { isAuthenticated, login } from "../auth/auth.js";
@@ -7,9 +6,9 @@ import classNames from "classnames";
 import { useNavigate } from "react-router";
 import { Toast } from "primereact/toast";
 import { Navigate } from "react-router-dom";
+import { Message } from "primereact/message";
 
 function Login() {
-  const [checked, setChecked] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -30,18 +29,14 @@ function Login() {
     } catch (error) {
       if (error instanceof Error) {
         // handle errors thrown from frontend
-        setError(error.message);
-        showError();
+        setError("Не указан Email или пароль");
       } else {
         // handle errors thrown from backend
         setError(String(error));
       }
     }
   };
-  
-  const showError = () => {
-    toast.current.show({severity:"error", summary: "Ошибка", detail: error, life: 3000});
-  };
+
   if (isAuthenticated()) {
     return <Navigate to="/" />;
   }
@@ -49,7 +44,7 @@ function Login() {
   return (
     <div className="flex align-items-center justify-content-center h-screen">
       <Toast ref={toast} />
-      <div className="surface-card p-4 shadow-2 border-round w-full lg:w-6">
+      <div className="surface-card p-4 shadow-2 border-round w-full sm:w-12 md:w-8 lg:w-6 xl:w-5 xxl:w-3">
         <div className="text-center mb-5">
           <div className="text-900 text-3xl font-medium mb-3">ASCETICISM</div>
         </div>
@@ -71,16 +66,8 @@ function Login() {
             onChange={(event) => setPassword(event.currentTarget.value)}
 
           />
-
-          <div className="flex align-items-center justify-content-between mb-6">
-            <div className="flex align-items-center">
-              <Checkbox id="rememberme" className="mr-2" checked={checked} onChange={e => setChecked(e.checked)} />
-              <label htmlFor="rememberme">Запомнить</label>
-            </div>
-            <a className="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Забыли пароль?</a>
-          </div>
-
-          <Button label="Войти" icon="pi pi-user" className="w-full" onClick={handleSubmit}/>
+          {error && <Message className="w-full flex mb-3 mt-3" severity="error" text={error} />}
+          <Button label="Войти" icon="pi pi-user" className="w-full mt-4" onClick={handleSubmit}/>
         </div>
       </div>
     </div>
