@@ -48,7 +48,18 @@ class TokenData(BaseModel):
 
 class Ascesa(BaseModel):
     name: str
+    days: int
     started_at: date
+
+    class Config:
+        orm_mode = True
+
+
+class AscesaOut(BaseModel):
+    name: str
+    days: int
+    started_at: date
+    progress: int
 
     class Config:
         orm_mode = True

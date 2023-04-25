@@ -1,3 +1,5 @@
+from datetime import date
+
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 
@@ -65,12 +67,25 @@ def edit_user(db: Session, user_id: int, user: schemas.UserEdit) -> schemas.User
 
 
 def create_ascesa(db: Session, ascesa: schemas.Ascesa, current_user: schemas.User):
+    progress_days = (date.today() - ascesa.started_at).days
+    if progress_days < 0:
+        progress_days = 0
+    elif progress_days > ascesa.days:
+        progress_days = ascesa.days
     db_acsesa = models.Ascesa(
         name=ascesa.name,
+        days=ascesa.days,
         started_at=ascesa.started_at,
+        progress=progress_days,
         user_id=current_user.id,
     )
     db.add(db_acsesa)
     db.commit()
     db.refresh(db_acsesa)
     return db_acsesa
+
+
+def get_my_asces(db: Session, current_user, skip: int = 0, limit: int = 100) -> list[schemas.AscesaOut]:
+    return db.query(models.Ascesa).filter(
+        models.Ascesa.user_id == current_user.id
+    ).offset(skip).limit(limit).all()

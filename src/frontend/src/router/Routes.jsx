@@ -1,30 +1,26 @@
-import {BrowserRouter as Router, Route, Routes, useRouteError} from "react-router-dom";
+import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
 import Login from "../views/Login.jsx";
-import Home from "../views/Home.jsx";
+import Home, {ascesLoader} from "../views/Home.jsx";
 import { PrivateRoute } from "./PrivateRoute.jsx";
 import CreateAscesis from "../views/ascesis/CreateAscesis.jsx";
+import React from "react";
 
-function AppRoutes() {
+const Error = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="login" element={<Login/>} errorElement={<ErrorBoundary />}/>
-        <Route element={<PrivateRoute />}>
-          <Route path="/" element={<Home/>}/>
-          <Route path="create-ascesis" element={<CreateAscesis/>}/>
-        </Route>
-      </Routes>
-    </Router>
+    <div>Ошибка</div>
   );
-}
+};
 
-function ErrorBoundary() {
-  let error = useRouteError();
-  console.error(error);
-  // Uncaught ReferenceError: path is not defined
-  return <div>Dang!</div>;
-}
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route>
+      <Route path="login" element={<Login />}/>
+      <Route element={<PrivateRoute/> }>
+        <Route path="/" loader={ascesLoader}  element={<Home/>} errorElement={<Error />}/>
+        <Route path="create-ascesis" element={<CreateAscesis />}/>
+      </Route>
+    </Route>
+  )
+);
 
-export default AppRoutes;
-
-
+export default router;
