@@ -1,0 +1,39 @@
+@mixin container {
+    @media screen and (min-width: 1960px) {
+    width: 1504px;
+    margin-left: auto!important;
+    margin-right: auto!important;
+  }
+}
+
+@mixin flex-align-center {
+  display: flex;
+  align-items: center;
+}
+
+.content-wrapper {
+  padding: 2rem;
+  @include container;
+}
+
+
+.topbar {
+  @include flex-align-center;
+  margin-bottom: 2rem;
+  justify-content: space-between;
+
+  &-menu {
+    @include flex-align-center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &-profile {
+    margin-left: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
