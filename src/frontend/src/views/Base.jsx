@@ -9,6 +9,7 @@ import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { useOutletContext } from "react-router";
 import { breadCrumbsLink } from "../hooks/useBreadcrumbs.jsx";
+import { Button } from "primereact/button";
 
 function Base() {
   const toast = useRef(null);
@@ -33,7 +34,10 @@ function Base() {
     <div className="content-wrapper">
       <div className="topbar">
         <div className="topbar-start">
-          {breadcrumbs.length>0 && <BreadCrumb model={breadcrumbs} home={home} />}
+          <Button icon="pi pi-bars" className="topbar-menubutton" text rounded severity="secondary"/>
+          <div className="breadcrumbs">
+            {breadcrumbs.length>0 && <BreadCrumb model={breadcrumbs} home={home} />}
+          </div>
         </div>
         <div className="topbar-end">
           <ul className="topbar-menu">

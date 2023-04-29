@@ -34,6 +34,14 @@
   margin-bottom: 2rem;
   justify-content: space-between;
 
+  &-start {
+    @include flex-align-center;
+  }
+
+  &-menubutton {
+    margin-right: 2rem;
+  }
+
   &-menu {
     @include flex-align-center;
     margin: 0;
@@ -66,4 +74,10 @@
       margin-bottom: 4rem;
     }
   }
+}
+
+
+.p-breadcrumb {
+  border: none;
+  background: inherit;
 }
