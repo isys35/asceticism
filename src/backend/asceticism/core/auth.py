@@ -15,7 +15,7 @@ async def get_current_user(db=Depends(session.get_db), token: str = Depends(secu
     )
     try:
         payload = jwt.decode(token, security.SECRET_KEY, algorithms=[security.ALGORITHM])
-        email: str = payload.get("sub")
+        email: str = payload.get("email")
         if email is None:
             raise credentials_exception
         permissions: str = payload.get("permissions")

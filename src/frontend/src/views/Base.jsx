@@ -20,6 +20,9 @@ function Base() {
     });
   };
   const [profileMenu, showProfileMenu] = useState(false);
+  const email = localStorage.getItem("email");
+  const firstName = JSON.parse(localStorage.getItem("first_name"));
+  const lastName = JSON.parse(localStorage.getItem("last_name"));
 
   return (
     <div className="content-wrapper">
@@ -39,8 +42,8 @@ function Base() {
       <Toast ref={toast} />
       <ConfirmDialog />
       <Sidebar visible={profileMenu} position="right" onHide={() => showProfileMenu(false)}>
-        <div className="flex flex-column mx-auto md:mx-0"><span className="mb-2 font-semibold">isysbas@gmail.com</span><span
-          className="text-color-secondary font-medium mb-5">Дмитрий Дроздов</span>
+        <div className="flex flex-column mx-auto md:mx-0"><span className="mb-2 font-semibold">{email}</span><span
+          className="text-color-secondary font-medium mb-5">{firstName} {lastName}</span>
         <ul className="list-none m-0 p-0">
           <ProfileMenuButton
             icon="pi-power-off" 

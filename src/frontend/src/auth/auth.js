@@ -51,6 +51,10 @@ export const login = async (email, password) => {
     const decodedToken = decodeJwt(data["access_token"]);
     localStorage.setItem("token", data["access_token"]);
     localStorage.setItem("permissions", decodedToken.permissions);
+    localStorage.setItem("email", decodedToken.email);
+    localStorage.setItem("first_name", JSON.stringify(decodedToken.first_name));
+    localStorage.setItem("last_name", JSON.stringify(decodedToken.last_name));
+    localStorage.setItem("homepage_viewed", JSON.stringify(decodedToken.homepage_viewed));
   }
 
   return data;

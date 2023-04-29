@@ -24,7 +24,13 @@ function Login() {
     try {
       const data = await login(email, password);
       if (data) {
-        return navigate("/");
+        const homepage_viewed = JSON.parse(localStorage.getItem("homepage_viewed"));
+        if (homepage_viewed) {
+          return navigate("/asces");
+        } else {
+          return navigate("/");
+        }
+
       }
     } catch (error) {
       if (error instanceof Error) {

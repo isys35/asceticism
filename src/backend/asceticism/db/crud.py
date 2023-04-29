@@ -89,3 +89,10 @@ def get_my_asces(db: Session, current_user, skip: int = 0, limit: int = 100) -> 
     return db.query(models.Ascesa).filter(
         models.Ascesa.user_id == current_user.id
     ).offset(skip).limit(limit).all()
+
+
+def set_user_homepage_viewed(db: Session, user: models.User) -> models.User:
+    if not user.homepage_viewed:
+        user.homepage_viewed = True
+        db.commit()
+    return user

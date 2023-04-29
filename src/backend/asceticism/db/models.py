@@ -14,6 +14,7 @@ class User(Base):
     hashed_password = Column(String, nullable=False)
     is_active = Column(Boolean, default=True)
     is_superuser = Column(Boolean, default=False)
+    homepage_viewed = Column(Boolean, server_default='false', default=False, nullable=False)
     asces = relationship("Ascesa", back_populates="user")
 
 
