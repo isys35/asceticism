@@ -14,6 +14,22 @@
 
 @import "styles/base.scss";
 
+@font-face {
+    font-family: Evander;
+    font-weight: bold;
+    src: url("fonts/PunchformEvanderExtraBold.otf") format("opentype");
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+}
+
+.logo {
+  font-family: Evander, serif;
+}
+
 :root {
   --surface-hover: rgba(255,255,255,.03);
 }

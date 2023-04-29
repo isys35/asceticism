@@ -11,8 +11,20 @@
   align-items: center;
 }
 
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.to-asces-btn {
+  font-size: 1.75rem;
+  width: 100%;
+}
+
 .content-wrapper {
   padding: 2rem;
+  min-height: 100vh;
+  @include flex-column;
   @include container;
 }
 
@@ -37,3 +49,21 @@
   }
 }
 
+.layout-main {
+  flex-grow: 1;
+  justify-content: center;
+  @include flex-column;
+
+  h1 {
+    font-size: 4rem;
+    text-align: center;
+  }
+  .about-asceticism {
+    font-size: 1.75rem;
+    max-width: 700px;
+    margin: 0 auto;
+    p:last-of-type {
+      margin-bottom: 4rem;
+    }
+  }
+}
