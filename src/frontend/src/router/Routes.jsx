@@ -18,8 +18,10 @@ const router = createBrowserRouter(
       <Route path="login" element={<Login />}/>
       <Route element={<PrivateRoute/> } errorElement={<Error />}>
         <Route path="/" element={<Home/>} />
-        <Route path="asces" loader={ascesLoader} element={<ListAscesis/>} />
-        <Route path="create-ascesa" element={<CreateAscesis />}/>
+        <Route path="asces" >
+          <Route index loader={ascesLoader} element={<ListAscesis/>} />
+          <Route path="create" element={<CreateAscesis />}/>
+        </Route>
       </Route>
     </Route>
   )
