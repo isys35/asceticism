@@ -1,30 +1,24 @@
-import { ConfirmPopup, confirmPopup } from "primereact/confirmpopup";
 import { logout } from "../auth/auth.js";
-import { Menubar } from "primereact/menubar";
 import { Outlet } from "react-router-dom";
 import { useRef, useState } from "react";
 import { Toast } from "primereact/toast";
 import { Avatar } from "primereact/avatar";
 import { Sidebar } from "primereact/sidebar";
+import ProfileMenuButton from "../components/buttons/ProfileMenuButton.jsx";
+import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 
 function Base() {
   const toast = useRef(null);
-  const menu = [
-    {
-      label: "Выход",
-      icon: "pi pi-fw pi-power-off",
-      command: (event) => {
-        confirmPopup({
-          target: event.originalEvent.currentTarget,
-          message: "Вы действительно хотите выйти?", 
-          acceptLabel: "Да",
-          rejectLabel: "Отмена",
-          icon: "pi pi-exclamation-triangle",
-          accept: logout,
-        });
-      }
-    }
-  ];
+  const confirmLogout = () => {
+    confirmDialog({
+      message: "Вы действительно хотите выйти?",
+      header: "Выход",
+      acceptLabel: "Да",
+      rejectLabel: "Отмена",
+      icon: "pi pi-exclamation-triangle",
+      accept: logout,
+    });
+  };
   const [profileMenu, showProfileMenu] = useState(false);
 
   return (
@@ -42,17 +36,22 @@ function Base() {
           </ul>
         </div>
       </div>
-      <Menubar model={menu} />
       <Toast ref={toast} />
-      <ConfirmPopup />
-      <Outlet context={toast} />
+      <ConfirmDialog />
       <Sidebar visible={profileMenu} position="right" onHide={() => showProfileMenu(false)}>
-        <h4>Right Sidebar</h4>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </p>
+        <div className="flex flex-column mx-auto md:mx-0"><span className="mb-2 font-semibold">isysbas@gmail.com</span><span
+          className="text-color-secondary font-medium mb-5">Дмитрий Дроздов</span>
+        <ul className="list-none m-0 p-0">
+          <ProfileMenuButton
+            icon="pi-power-off" 
+            mainText="Выход"
+            secondaryText="Выйти из профиля"
+            onClick={confirmLogout}
+          />
+        </ul>
+        </div>
       </Sidebar>
+      <Outlet context={toast} />
     </div>
   );
 }

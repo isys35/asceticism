@@ -15,7 +15,7 @@ async def login(db=Depends(get_db), form_data: OAuth2PasswordRequestForm = Depen
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
+            detail="Неверный Email или пароль",
             headers={"WWW-Authenticate": "Bearer"},
         )
 

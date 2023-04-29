@@ -1,7 +1,7 @@
 import {Link, useLoaderData} from "react-router-dom";
 import { Button } from "primereact/button";
 import {API} from "../api.js";
-import AscesaCard from "../components/cards/ascesa.jsx";
+import AscesaCard from "../components/cards/AscesaCard.jsx";
 
 
 export const ascesLoader = async () => {
