@@ -16,10 +16,25 @@
   flex-direction: column;
 }
 
+
 .to-asces-btn {
   font-size: 1.75rem;
   width: 100%;
 }
+
+
+.container.static {
+  .content-wrapper {
+    margin-left: 18rem;
+    transition: margin-left var(--transition-duration);
+  }
+  &-inactive {
+    .content-wrapper {
+      margin-left: 0;
+    }
+  }
+}
+
 
 .content-wrapper {
   padding: 2rem;
@@ -80,4 +95,10 @@
 .p-breadcrumb {
   border: none;
   background: inherit;
+}
+
+.p-sidebar-left {
+  .p-sidebar {
+    width: 18rem;
+  }
 }
