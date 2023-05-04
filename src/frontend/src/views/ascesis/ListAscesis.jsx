@@ -3,7 +3,7 @@ import {Link, useLoaderData } from "react-router-dom";
 import { Button } from "primereact/button";
 import AscesaCard from "../../components/cards/AscesaCard.jsx";
 import { useBreadcrumbs } from "../../hooks/useBreadcrumbs.jsx";
-
+import { Toolbar } from "primereact/toolbar";
 
 export const ascesLoader = async () => {
   const response = await API.get("/asces");
@@ -17,13 +17,19 @@ function ListAscesis() {
     <AscesaCard ascesa={ascesa_item} key={index}/>
   );
   useBreadcrumbs([{ label: "Аскезы" }]);
-
+  const toolbarAddAscesa = (
+    <Link to="create">
+      <Button icon="pi pi-plus" label="Добавить Аскезу" to="create_ascesis"/>
+    </Link>
+  );  
+  
   return (
     <div className="layout-content">
-      <Link to="create">
-        <Button label="Создать Аскезу" to="create_ascesis"/>
-      </Link>
-      {asces}
+      <h1>Аскезы</h1>
+      <Toolbar className="mb-5" start={toolbarAddAscesa} />
+      <div className="grid">
+        {asces}
+      </div>
     </div>
   );
 }

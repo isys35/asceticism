@@ -12,9 +12,11 @@ function AscesaCard({ ascesa }) {
     );
   };
   return (
-    <Card title={ascesa.name}>
-      <ProgressBar value={(ascesa.progress/ascesa.days)*100} displayValueTemplate={valueTemplate}></ProgressBar>
-    </Card>
+    <div className="col-12 md:col-6">
+      <Card title={ascesa.name}>
+        <ProgressBar value={(ascesa.progress/ascesa.days)*100} displayValueTemplate={valueTemplate}></ProgressBar>
+      </Card>
+    </div>
   );
 }
 

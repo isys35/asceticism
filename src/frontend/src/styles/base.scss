@@ -118,3 +118,17 @@
     border: none;
   }
 }
+
+.p-card {
+    background: var(--surface-card);
+    border: 1px solid var(--surface-border);
+    padding: 1rem;
+    box-shadow: var(--card-shadow);
+    border-radius: 12px;
+}
+
+.p-toolbar {
+  background: inherit;
+  border: none;
+  padding-left: 0px;
+}
