@@ -1,14 +1,5 @@
 import { Link } from "react-router-dom";
 import { Button } from "primereact/button";
-// import { API } from "../api.js";
-// import AscesaCard from "../components/cards/AscesaCard.jsx";
-
-
-// export const ascesLoader = async () => {
-//   const response = await API.get("/asces");
-//   return response.data;
-// };
-
 
 
 

@@ -5,6 +5,7 @@ import AscesaCard from "../../components/cards/AscesaCard.jsx";
 import { useBreadcrumbs } from "../../hooks/useBreadcrumbs.jsx";
 import { Toolbar } from "primereact/toolbar";
 
+
 export const ascesLoader = async () => {
   const response = await API.get("/asces");
   return response.data;
@@ -21,11 +22,23 @@ function ListAscesis() {
     <Link to="create">
       <Button icon="pi pi-plus" label="Добавить Аскезу" to="create_ascesis"/>
     </Link>
-  );  
+  );
+  
+  const getToday = () => {
+    const options = {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+    };
+    return new Date().toLocaleString("ru-RU", options);
+  };
   
   return (
     <div className="layout-content">
-      <h1>Аскезы</h1>
+      <div className="flex justify-content-between align-items-center">
+        <h1>Аскезы</h1>
+        <span className="today-date">{getToday()}</span>
+      </div>
       <Toolbar className="mb-5" start={toolbarAddAscesa} />
       <div className="grid">
         {asces}
