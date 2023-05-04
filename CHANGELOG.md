@@ -1,3 +1,18 @@
+## 0.0.10 (2023-05-04)
+
+### Fix
+
+- add today date
+- add asces list
+- style sidebar
+- sidebar style
+- add burger
+- add breadcrumbs
+- only one redirect to the home page
+- add main page
+- add profile menu
+- verstka
+
 ## 0.0.9 (2023-04-25)
 
 ### Fix
