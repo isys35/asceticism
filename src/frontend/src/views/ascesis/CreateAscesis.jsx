@@ -9,8 +9,10 @@ import * as Yup from "yup";
 import { REQUIRED_MESSAGE } from "../../config.js";
 import { API } from "../../api.js";
 import React from "react";
-import { useNavigate, useOutletContext } from "react-router";
- 
+import { useNavigate } from "react-router";
+import { useToast } from "../Base.jsx";
+import {useBreadcrumbs} from "../../hooks/useBreadcrumbs.jsx";
+
 const CreateAscesisSchema = Yup.object().shape({
   name: Yup.string()
     .required(REQUIRED_MESSAGE),
@@ -24,7 +26,8 @@ const CreateAscesisSchema = Yup.object().shape({
 });
 
 function CreateAscesis() {
-  const toast = useOutletContext();
+  const { toast } = useToast();
+  useBreadcrumbs([{ label: "Аскезы", url:"/asces"}, {label: "Создание аскез"}]);
   const [started_at] = React.useState(new Date());
   let navigate = useNavigate();
 

@@ -1,0 +1,137 @@
+@mixin container {
+    @media screen and (min-width: 1960px) {
+    width: 1504px;
+    margin-left: auto!important;
+    margin-right: auto!important;
+  }
+}
+
+@mixin flex-align-center {
+  display: flex;
+  align-items: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.to-asces-btn {
+  font-size: 1.75rem;
+  width: 100%;
+}
+
+
+.container.static {
+  .content-wrapper {
+    margin-left: 18rem;
+    transition: margin-left var(--transition-duration);
+  }
+  &-inactive {
+    .content-wrapper {
+      margin-left: 0;
+    }
+  }
+}
+
+
+.content-wrapper {
+  padding: 2rem;
+  min-height: 100vh;
+  @include flex-column;
+  @include container;
+}
+
+
+.topbar {
+  @include flex-align-center;
+  margin-bottom: 2rem;
+  justify-content: space-between;
+
+  &-start {
+    @include flex-align-center;
+  }
+
+  &-menubutton {
+    margin-right: 2rem;
+  }
+
+  &-menu {
+    @include flex-align-center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &-profile {
+    margin-left: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.layout-main {
+  flex-grow: 1;
+  justify-content: center;
+  @include flex-column;
+
+  h1 {
+    font-size: 4rem;
+    text-align: center;
+  }
+  .about-asceticism {
+    font-size: 1.75rem;
+    max-width: 700px;
+    margin: 0 auto;
+    p:last-of-type {
+      margin-bottom: 4rem;
+    }
+  }
+}
+
+.today-date {
+  font-size: 1.75rem;
+}
+
+.p-breadcrumb {
+  border: none;
+  background: inherit;
+}
+
+.p-sidebar-left {
+  .p-sidebar {
+    width: 18rem;
+  }
+}
+
+.main-menu {
+  .p-sidebar-header {
+    justify-content: center;
+    padding: 1.5rem 1rem;
+  }
+  .logo {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 2rem;
+  }
+  .p-menu {
+    width: 100%;
+    border: none;
+  }
+}
+
+.p-card {
+    background: var(--surface-card);
+    border: 1px solid var(--surface-border);
+    padding: 1rem;
+    box-shadow: var(--card-shadow);
+    border-radius: 12px;
+}
+
+.p-toolbar {
+  background: inherit;
+  border: none;
+  padding-left: 0px;
+}

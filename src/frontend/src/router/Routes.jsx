@@ -1,9 +1,10 @@
 import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
 import Login from "../views/Login.jsx";
-import Home, {ascesLoader} from "../views/Home.jsx";
+import Home from "../views/Home.jsx";
 import { PrivateRoute } from "./PrivateRoute.jsx";
 import CreateAscesis from "../views/ascesis/CreateAscesis.jsx";
 import React from "react";
+import ListAscesis, {ascesLoader} from "../views/ascesis/ListAscesis.jsx";
 
 const Error = () => {
   return (
@@ -15,9 +16,12 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="login" element={<Login />}/>
-      <Route element={<PrivateRoute/> }>
-        <Route path="/" loader={ascesLoader}  element={<Home/>} errorElement={<Error />}/>
-        <Route path="create-ascesis" element={<CreateAscesis />}/>
+      <Route element={<PrivateRoute/> } errorElement={<Error />}>
+        <Route path="/" element={<Home/>} />
+        <Route path="asces" >
+          <Route index loader={ascesLoader} element={<ListAscesis/>} />
+          <Route path="create" element={<CreateAscesis />}/>
+        </Route>
       </Route>
     </Route>
   )

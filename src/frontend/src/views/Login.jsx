@@ -24,7 +24,13 @@ function Login() {
     try {
       const data = await login(email, password);
       if (data) {
-        return navigate("/");
+        const homepage_viewed = JSON.parse(localStorage.getItem("homepage_viewed"));
+        if (homepage_viewed) {
+          return navigate("/asces");
+        } else {
+          return navigate("/");
+        }
+
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -46,7 +52,7 @@ function Login() {
       <Toast ref={toast} />
       <div className="surface-card p-4 shadow-2 border-round w-full sm:w-12 md:w-8 lg:w-6 xl:w-5 xxl:w-3">
         <div className="text-center mb-5">
-          <div className="text-900 text-3xl font-medium mb-3">ASCETICISM</div>
+          <div className="text-900 text-3xl font-medium mb-3 logo">ASCETICISM</div>
         </div>
         <div>
           <label htmlFor="email" className="block text-900 font-medium mb-2">Email</label>
