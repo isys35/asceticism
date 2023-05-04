@@ -13,10 +13,6 @@ import { Button } from "primereact/button";
 
 
 function Home() {
-  // const ascesData = useLoaderData();
-  // const asces = ascesData.map((ascesa_item, index) =>
-  //   <AscesaCard ascesa={ascesa_item} key={index}/>
-  // );
   return (
     <div className="layout-main">
       <h1 className="logo">ASCETICISM</h1>
@@ -29,10 +25,6 @@ function Home() {
           <Button label="Мои аскезы" className="to-asces-btn"/>
         </Link>
       </div>
-      {/*<Link to="create-ascesis">*/}
-      {/*  <Button label="Создать Аскезу" to="create_ascesis"/>*/}
-      {/*</Link>*/}
-      {/*{asces}*/}
     </div>
   );
 }

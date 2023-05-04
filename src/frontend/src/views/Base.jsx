@@ -1,5 +1,5 @@
 import { logout } from "../auth/auth.js";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { useRef, useState } from "react";
 import { Toast } from "primereact/toast";
 import { Avatar } from "primereact/avatar";
@@ -10,6 +10,7 @@ import { BreadCrumb } from "primereact/breadcrumb";
 import { useOutletContext } from "react-router";
 import { breadCrumbsLink } from "../hooks/useBreadcrumbs.jsx";
 import { Button } from "primereact/button";
+import { Menu } from "primereact/menu";
 import classNames from "classnames";
 
 function Base() {
@@ -35,6 +36,23 @@ function Base() {
   const staticClasses = classNames("container", "static", {
     "static-inactive": !mainMenu
   });
+
+  const menuHeader =  (
+    <Link to="/" className="logo">ASCETICISM</Link>
+  );
+  
+  let menuItems = [
+    {
+      template: () => {
+        return (
+          <Link to="asces" className="p-menuitem-link" role="menuitem">
+            <span className="p-menuitem-icon pi pi-fw pi-shield"></span>
+            <span className="p-menuitem-text">Мои аскезы</span>
+          </Link>
+        );
+      }
+    }
+  ];
   
   return (
     <div className={staticClasses}>
@@ -79,13 +97,15 @@ function Base() {
         <Sidebar
           appendTo="self"
           visible={mainMenu}
+          className="main-menu"
           position="left"
           onHide={() => showMainMenu(false)}
           modal={false}
           dismissable={false}
           showCloseIcon={false}
+          icons={menuHeader}
         >
-          <p>LOGO</p>
+          <Menu model={menuItems} />
         </Sidebar>
         <Outlet context={{toast, breadcrumbs, setBreadcrumbs}} />
       </div>

@@ -102,3 +102,19 @@
     width: 18rem;
   }
 }
+
+.main-menu {
+  .p-sidebar-header {
+    justify-content: center;
+    padding: 1.5rem 1rem;
+  }
+  .logo {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 2rem;
+  }
+  .p-menu {
+    width: 100%;
+    border: none;
+  }
+}
