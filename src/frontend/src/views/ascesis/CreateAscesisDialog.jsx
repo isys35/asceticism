@@ -5,12 +5,12 @@ import { REQUIRED_MESSAGE } from "../../config.js";
 import { useState } from "react";
 import { useToast } from "../Base.jsx";
 import { useFormik } from "formik";
-import { API } from "../../api.js";
 import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";
 import { Calendar } from "primereact/calendar";
 import { Button } from "primereact/button";
 import { useFieldClasses } from "../../hooks/useFieldClasses.jsx";
+import { ascesAPI } from "../../api/api.js";
 
 const CreateAscesisSchema = Yup.object().shape({
   name: Yup.string()
@@ -34,14 +34,11 @@ function CreateAscesisDialog({ visible, setVisible }) {
       days: 100,
     },
     validationSchema: CreateAscesisSchema,
-    onSubmit: values => {
-      let data = {...values};
-      data.started_at = data.started_at.getTime();
-      API.post("/asces", data)
-        .then(() => {
-          setVisible(false);
-          toast.current.show({severity:"success", summary: "Успешно", detail: "Аскеза успешно создана", life: 3000});
-        });
+    onSubmit: async values => {
+      ascesAPI.create(values).then(() => {
+        setVisible(false);
+        toast.current.show({severity:"success", summary: "Успешно", detail: "Аскеза успешно создана", life: 3000});
+      });
     },
   });
   const isFormFieldInvalid = (name) => !!(formik.touched[name] && formik.errors[name]);
@@ -91,7 +88,9 @@ function CreateAscesisDialog({ visible, setVisible }) {
             onValueChange={formik.handleChange}/>
           {getFormErrorMessage("days")}
         </div>
-        <Button label="Создать" type="submit"/>
+        <div className="flex justify-content-end">
+          <Button label="Создать" type="submit"/>
+        </div>
       </form>
     </Dialog>
   );

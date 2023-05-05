@@ -1,7 +1,5 @@
 import PropTypes from "prop-types";
 
-// pi-power-off
-
 function ProfileMenuButton({icon, mainText, secondaryText, onClick}) {
   const btnClasses = "cursor-pointer flex surface-border mb-3 p-3 align-items-center border-1 surface-border border-round hover:surface-hover transition-colors transition-duration-150";
   return (
