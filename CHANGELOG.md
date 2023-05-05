@@ -1,3 +1,12 @@
+## 0.0.11 (2023-05-05)
+
+### Fix
+
+- add default fields
+- create ascesis in modal
+- add modal create ascesis
+- add today hook
+
 ## 0.0.10 (2023-05-04)
 
 ### Fix
