@@ -1,10 +1,12 @@
 import {API} from "../../api.js";
-import {Link, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { Button } from "primereact/button";
 import AscesaCard from "../../components/cards/AscesaCard.jsx";
 import { useBreadcrumbs } from "../../hooks/useBreadcrumbs.jsx";
 import { Toolbar } from "primereact/toolbar";
 import { useToday } from "../../hooks/useToday.jsx";
+import CreateAscesisDialog from "./CreateAscesisDialog.jsx";
+import {useState} from "react";
 
 
 export const ascesLoader = async () => {
@@ -15,16 +17,18 @@ export const ascesLoader = async () => {
 
 function ListAscesis() {
   const ascesData = useLoaderData();
+  const today = useToday();
+  const [visibleDialog, setVisibleDialog] = useState(false);
+  useBreadcrumbs([{ label: "Аскезы" }]);
+  const toolbarAddAscesa = (
+    <>
+      <Button icon="pi pi-plus" label="Добавить Аскезу" onClick={()=> setVisibleDialog(true)}/>
+    </>
+  );
   const asces = ascesData.map((ascesa_item, index) =>
     <AscesaCard ascesa={ascesa_item} key={index}/>
   );
-  useBreadcrumbs([{ label: "Аскезы" }]);
-  const toolbarAddAscesa = (
-    <Link to="create">
-      <Button icon="pi pi-plus" label="Добавить Аскезу" to="create_ascesis"/>
-    </Link>
-  );
-  const today = useToday();
+
   
   return (
     <div className="layout-content">
@@ -36,6 +40,7 @@ function ListAscesis() {
       <div className="grid">
         {asces}
       </div>
+      <CreateAscesisDialog visible={visibleDialog} setVisible={setVisibleDialog} />
     </div>
   );
 }
