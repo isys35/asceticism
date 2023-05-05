@@ -1,6 +1,6 @@
 import classNames from "classnames";
 
-export function useFieldClasses(fields, checkField = () => false ) {
+export function useFieldClasses(fields, checkField = f => f ) {
   let fieldClasses = {};
 
   fields.forEach(field => {

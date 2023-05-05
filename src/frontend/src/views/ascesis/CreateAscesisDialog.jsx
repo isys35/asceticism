@@ -2,15 +2,14 @@ import { Dialog } from "primereact/dialog";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
 import { REQUIRED_MESSAGE } from "../../config.js";
-import { useState } from "react";
 import { useToast } from "../Base.jsx";
 import { useFormik } from "formik";
-import { InputText } from "primereact/inputtext";
-import { InputNumber } from "primereact/inputnumber";
-import { Calendar } from "primereact/calendar";
 import { Button } from "primereact/button";
-import { useFieldClasses } from "../../hooks/useFieldClasses.jsx";
 import { ascesAPI } from "../../api/api.js";
+import AInputText from "../../components/forms/fields/AInputText.jsx";
+import ACalendar from "../../components/forms/fields/ACalendar.jsx";
+import AInputNumber from "../../components/forms/fields/AInputNumber.jsx";
+import {useState} from "react";
 
 const CreateAscesisSchema = Yup.object().shape({
   name: Yup.string()
@@ -41,15 +40,6 @@ function CreateAscesisDialog({ visible, setVisible }) {
       });
     },
   });
-  const isFormFieldInvalid = (name) => !!(formik.touched[name] && formik.errors[name]);
-
-  const getFormErrorMessage = (name) => {
-    return isFormFieldInvalid(name) ? <small className="p-error">{formik.errors[name]}</small> : <small className="p-error">&nbsp;</small>;
-  };
-
-  
-  const fieldClasses = useFieldClasses(["name", "started_at", "days"], isFormFieldInvalid);
-  
 
   return (
     <Dialog
@@ -58,36 +48,9 @@ function CreateAscesisDialog({ visible, setVisible }) {
       onHide={() => setVisible(false)}
     >
       <form onSubmit={formik.handleSubmit}>
-        <div className="field">
-          <label htmlFor="name">Аскеза</label>
-          <InputText 
-            className={fieldClasses.name}
-            id="name"
-            value={formik.values.name}
-            onChange={formik.handleChange}/>
-          {getFormErrorMessage("name")}
-        </div>
-        <div className="field">
-          <label htmlFor="start_date">Дата начала</label>
-          <Calendar
-            className={fieldClasses.started_at}
-            id="started_at"
-            dateFormat="dd.mm.yy"
-            value={formik.values.started_at}
-            onChange={formik.handleChange}/>
-          {getFormErrorMessage("started_at")}
-        </div>
-        <div className="field">
-          <label htmlFor="days">Кол-во дней</label>
-          <InputNumber
-            className={fieldClasses.days}
-            id="days"
-            min={1}
-            max={1000}
-            value={formik.values.days}
-            onValueChange={formik.handleChange}/>
-          {getFormErrorMessage("days")}
-        </div>
+        <AInputText fieldName="name" label="Аскеза" formik={formik}/>
+        <ACalendar fieldName="started_at" label="Дата начала" formik={formik}/>
+        <AInputNumber fieldName="days" label="Кол-во дней" formik={formik}/>
         <div className="flex justify-content-end">
           <Button label="Создать" type="submit"/>
         </div>
