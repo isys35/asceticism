@@ -4,7 +4,6 @@ import {NavLink} from "react-router-dom";
 
 
 export const breadCrumbsLink = (item, options) => {
-  console.log(item);
   const linkContent = item.label 
     ? <span className="p-menuitem-text">{item.label}</span> 
     : <span className={`p-menuitem-icon ${item.icon}`}></span>;
