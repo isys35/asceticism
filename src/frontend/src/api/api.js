@@ -7,4 +7,7 @@ export const ascesAPI = {
     data.started_at = data.started_at.getTime();
     return API.post("/asces", data);
   },
+  complete: ascesa_id => {
+    return API.post(`/asces/${ascesa_id}/complete`);
+  },
 };

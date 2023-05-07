@@ -10,21 +10,19 @@ import { ascesAPI } from "../../api/api.js";
 function ListAscesis() {
   const today = useToday();
   const [visibleDialog, setVisibleDialog] = useState(false);
+  const [addAscesButtonTitle, setAscesButtonTitle] = useState("");
   useBreadcrumbs([{ label: "Аскезы" }]);
   const [ascesData, setAscesData] = useState([]);
-  const toolbarAddAscesa = (
-    <>
-      <Button
-        icon="pi pi-plus"
-        label="Добавить Аскезу"
-        onClick={() => setVisibleDialog(true)}
-      />
-    </>
-  );
 
   useEffect(() => {
     ascesAPI.list().then(response => setAscesData(response.data));
   }, []);
+
+  useEffect(() => {
+    ascesData.length === 0
+      ? setAscesButtonTitle("Добавить аскезу")
+      : setAscesButtonTitle("");
+  }, [ascesData]);
 
   const asces = ascesData.map((ascesa_item, index) => (
     <PureAscesaCard
@@ -32,6 +30,25 @@ function ListAscesis() {
       key={index}
     />
   ));
+
+  const toolbarAddAscesa = (
+    <>
+      <Button
+        icon="pi pi-plus"
+        label={addAscesButtonTitle}
+        onClick={() => setVisibleDialog(true)}
+      />
+    </>
+  );
+
+  const toolbarCompleteAsces = (
+    <>
+      <Button
+        icon="pi pi-check"
+        label="Выполнить все"
+      />
+    </>
+  );
 
   const ascesNotFound = (
     <div className="col text-center text-4xl">Нет актиных аскез</div>
@@ -45,7 +62,8 @@ function ListAscesis() {
       </div>
       <Toolbar
         className="mb-8"
-        start={toolbarAddAscesa}
+        start={toolbarCompleteAsces}
+        end={toolbarAddAscesa}
       />
       <div className="grid">{asces ? asces : ascesNotFound}</div>
       <CreateAscesisDialog

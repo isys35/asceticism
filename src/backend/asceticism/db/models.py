@@ -22,10 +22,11 @@ class Ascesa(Base):
     __tablename__ = 'ascesa'
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String)
-    started_at = Column(Date)
-    ended_at = Column(Date)
-    days = Column(Integer)
+    name = Column(String, nullable=False)
+    started_at = Column(Date, nullable=False)
+    ended_at = Column(Date, nullable=False)
+    days = Column(Integer, nullable=False)
     progress = Column(Integer, nullable=False, server_default="0")
-    user_id = Column(Integer, ForeignKey('user.id'))
+    user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     user = relationship("User", back_populates="asces")
+    completed_today = Column(Boolean, nullable=False, default=False, server_default="false")

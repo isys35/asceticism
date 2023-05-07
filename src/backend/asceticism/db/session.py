@@ -6,6 +6,7 @@ from asceticism.core import config
 
 engine = create_engine(
     config.SQLALCHEMY_DATABASE_URI,
+    echo=True
 )
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
