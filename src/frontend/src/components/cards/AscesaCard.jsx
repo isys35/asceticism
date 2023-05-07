@@ -1,6 +1,7 @@
 import { Card } from "primereact/card";
 import PropTypes from "prop-types";
 import { ProgressBar } from "primereact/progressbar";
+import { memo } from "react";
 
 function AscesaCard({ ascesa }) {
   const valueTemplate = () => {
@@ -21,6 +22,8 @@ function AscesaCard({ ascesa }) {
     </div>
   );
 }
+
+export const PureAscesaCard = memo(AscesaCard);
 
 AscesaCard.propTypes = {
   ascesa: PropTypes.object,

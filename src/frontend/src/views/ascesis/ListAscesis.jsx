@@ -1,5 +1,5 @@
 import { Button } from "primereact/button";
-import AscesaCard from "../../components/cards/AscesaCard.jsx";
+import { PureAscesaCard } from "../../components/cards/AscesaCard.jsx";
 import { useBreadcrumbs } from "../../hooks/useBreadcrumbs.jsx";
 import { Toolbar } from "primereact/toolbar";
 import { useToday } from "../../hooks/useToday.jsx";
@@ -24,10 +24,10 @@ function ListAscesis() {
 
   useEffect(() => {
     ascesAPI.list().then(response => setAscesData(response.data));
-  }, [visibleDialog]);
+  }, []);
 
   const asces = ascesData.map((ascesa_item, index) => (
-    <AscesaCard
+    <PureAscesaCard
       ascesa={ascesa_item}
       key={index}
     />
@@ -47,6 +47,8 @@ function ListAscesis() {
       <CreateAscesisDialog
         visible={visibleDialog}
         setVisible={setVisibleDialog}
+        ascesData={ascesData}
+        setAscesData={setAscesData}
       />
     </div>
   );
