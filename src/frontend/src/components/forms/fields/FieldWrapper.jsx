@@ -16,5 +16,5 @@ FieldWrapper.propTypes = {
   fieldName: PropTypes.string,
   label: PropTypes.string,
   formik: PropTypes.object,
-  children: PropTypes.element
+  children: PropTypes.element,
 };

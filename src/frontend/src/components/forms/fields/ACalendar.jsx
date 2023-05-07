@@ -1,4 +1,4 @@
-import {Calendar} from "primereact/calendar";
+import { Calendar } from "primereact/calendar";
 import FieldWrapper from "./FieldWrapper.jsx";
 import PropTypes from "prop-types";
 import useWidgetMainProps from "../../../hooks/useWidgetMainProps.jsx";
@@ -18,5 +18,5 @@ export default function ACalendar(props) {
 ACalendar.propTypes = {
   fieldName: PropTypes.string,
   label: PropTypes.string,
-  formik: PropTypes.object
+  formik: PropTypes.object,
 };

@@ -54,12 +54,14 @@ export const login = async (email, password) => {
     localStorage.setItem("email", decodedToken.email);
     localStorage.setItem("first_name", JSON.stringify(decodedToken.first_name));
     localStorage.setItem("last_name", JSON.stringify(decodedToken.last_name));
-    localStorage.setItem("homepage_viewed", JSON.stringify(decodedToken.homepage_viewed));
+    localStorage.setItem(
+      "homepage_viewed",
+      JSON.stringify(decodedToken.homepage_viewed),
+    );
   }
 
   return data;
 };
-
 
 export const logout = () => {
   localStorage.clear();
