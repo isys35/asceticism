@@ -1,11 +1,11 @@
 import classNames from "classnames";
 
-export function useFieldClasses(fields, checkField = f => f ) {
+export function useFieldClasses(fields, checkField = f => f) {
   let fieldClasses = {};
 
   fields.forEach(field => {
     fieldClasses[field] = classNames("w-full", {
-      "p-invalid": checkField(field)
+      "p-invalid": checkField(field),
     });
   });
 

@@ -32,48 +32,68 @@ function Base() {
   const firstName = JSON.parse(localStorage.getItem("first_name"));
   const lastName = JSON.parse(localStorage.getItem("last_name"));
   const home = { icon: "pi pi-home", url: "/", template: breadCrumbsLink };
-  
+
   const staticClasses = classNames("container", "static", {
-    "static-inactive": !mainMenu
+    "static-inactive": !mainMenu,
   });
 
-  const menuHeader =  (
-    <Link to="/" className="logo">ASCETICISM</Link>
+  const menuHeader = (
+    <Link
+      to="/"
+      className="logo">
+      ASCETICISM
+    </Link>
   );
-  
+
   let menuItems = [
     {
       template: () => {
         return (
-          <Link to="asces" className="p-menuitem-link" role="menuitem">
+          <Link
+            to="asces"
+            className="p-menuitem-link"
+            role="menuitem">
             <span className="p-menuitem-icon pi pi-fw pi-shield"></span>
             <span className="p-menuitem-text">Мои аскезы</span>
           </Link>
         );
-      }
-    }
+      },
+    },
   ];
-  
+
   return (
     <div className={staticClasses}>
-      <div className="content-wrapper" >
+      <div className="content-wrapper">
         <div className="topbar">
           <div className="topbar-start">
-            <Button 
-              icon="pi pi-bars" 
-              className="topbar-menubutton" 
-              text rounded severity="secondary" 
+            <Button
+              icon="pi pi-bars"
+              className="topbar-menubutton"
+              text
+              rounded
+              severity="secondary"
               onClick={() => showMainMenu(!mainMenu)}
             />
             <div className="breadcrumbs">
-              {breadcrumbs.length>0 && <BreadCrumb model={breadcrumbs} home={home} />}
+              {breadcrumbs.length > 0 && (
+                <BreadCrumb
+                  model={breadcrumbs}
+                  home={home}
+                />
+              )}
             </div>
           </div>
           <div className="topbar-end">
             <ul className="topbar-menu">
               <li className="topbar-profile">
-                <button className="p-link" onClick={() => showProfileMenu(true)}>
-                  <Avatar icon="pi pi-user" size="large" shape="circle" />
+                <button
+                  className="p-link"
+                  onClick={() => showProfileMenu(true)}>
+                  <Avatar
+                    icon="pi pi-user"
+                    size="large"
+                    shape="circle"
+                  />
                 </button>
               </li>
             </ul>
@@ -81,17 +101,23 @@ function Base() {
         </div>
         <Toast ref={toast} />
         <ConfirmDialog />
-        <Sidebar visible={profileMenu} position="right" onHide={() => showProfileMenu(false)}>
-          <div className="flex flex-column mx-auto md:mx-0"><span className="mb-2 font-semibold">{email}</span><span
-            className="text-color-secondary font-medium mb-5">{firstName} {lastName}</span>
-          <ul className="list-none m-0 p-0">
-            <ProfileMenuButton
-              icon="pi-power-off" 
-              mainText="Выход"
-              secondaryText="Выйти из профиля"
-              onClick={confirmLogout}
-            />
-          </ul>
+        <Sidebar
+          visible={profileMenu}
+          position="right"
+          onHide={() => showProfileMenu(false)}>
+          <div className="flex flex-column mx-auto md:mx-0">
+            <span className="mb-2 font-semibold">{email}</span>
+            <span className="text-color-secondary font-medium mb-5">
+              {firstName} {lastName}
+            </span>
+            <ul className="list-none m-0 p-0">
+              <ProfileMenuButton
+                icon="pi-power-off"
+                mainText="Выход"
+                secondaryText="Выйти из профиля"
+                onClick={confirmLogout}
+              />
+            </ul>
           </div>
         </Sidebar>
         <Sidebar
@@ -103,11 +129,10 @@ function Base() {
           modal={false}
           dismissable={false}
           showCloseIcon={false}
-          icons={menuHeader}
-        >
+          icons={menuHeader}>
           <Menu model={menuItems} />
         </Sidebar>
-        <Outlet context={{toast, breadcrumbs, setBreadcrumbs}} />
+        <Outlet context={{ toast, breadcrumbs, setBreadcrumbs }} />
       </div>
     </div>
   );

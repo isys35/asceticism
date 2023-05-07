@@ -9,18 +9,12 @@ import { ascesAPI } from "../../api/api.js";
 import AInputText from "../../components/forms/fields/AInputText.jsx";
 import ACalendar from "../../components/forms/fields/ACalendar.jsx";
 import AInputNumber from "../../components/forms/fields/AInputNumber.jsx";
-import {useState} from "react";
+import { useState } from "react";
 
 const CreateAscesisSchema = Yup.object().shape({
-  name: Yup.string()
-    .required(REQUIRED_MESSAGE),
-  started_at: Yup.date()
-    .required(REQUIRED_MESSAGE),
-  days: Yup.number()
-    .integer()
-    .min(1)
-    .max(1000)
-    .required(REQUIRED_MESSAGE)
+  name: Yup.string().required(REQUIRED_MESSAGE),
+  started_at: Yup.date().required(REQUIRED_MESSAGE),
+  days: Yup.number().integer().min(1).max(1000).required(REQUIRED_MESSAGE),
 });
 
 function CreateAscesisDialog({ visible, setVisible }) {
@@ -36,7 +30,12 @@ function CreateAscesisDialog({ visible, setVisible }) {
     onSubmit: async values => {
       ascesAPI.create(values).then(() => {
         setVisible(false);
-        toast.current.show({severity:"success", summary: "Успешно", detail: "Аскеза успешно создана", life: 3000});
+        toast.current.show({
+          severity: "success",
+          summary: "Успешно",
+          detail: "Аскеза успешно создана",
+          life: 3000,
+        });
       });
     },
   });
@@ -45,14 +44,28 @@ function CreateAscesisDialog({ visible, setVisible }) {
     <Dialog
       header="Создание Аскезы"
       visible={visible}
-      onHide={() => setVisible(false)}
-    >
+      onHide={() => setVisible(false)}>
       <form onSubmit={formik.handleSubmit}>
-        <AInputText fieldName="name" label="Аскеза" formik={formik}/>
-        <ACalendar fieldName="started_at" label="Дата начала" formik={formik}/>
-        <AInputNumber fieldName="days" label="Кол-во дней" formik={formik}/>
+        <AInputText
+          fieldName="name"
+          label="Аскеза"
+          formik={formik}
+        />
+        <ACalendar
+          fieldName="started_at"
+          label="Дата начала"
+          formik={formik}
+        />
+        <AInputNumber
+          fieldName="days"
+          label="Кол-во дней"
+          formik={formik}
+        />
         <div className="flex justify-content-end">
-          <Button label="Создать" type="submit"/>
+          <Button
+            label="Создать"
+            type="submit"
+          />
         </div>
       </form>
     </Dialog>
@@ -61,7 +74,7 @@ function CreateAscesisDialog({ visible, setVisible }) {
 
 CreateAscesisDialog.propTypes = {
   visible: PropTypes.bool,
-  setVisible: PropTypes.func
+  setVisible: PropTypes.func,
 };
 
 export default CreateAscesisDialog;
