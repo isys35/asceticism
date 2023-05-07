@@ -24,6 +24,7 @@ class Ascesa(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String)
     started_at = Column(Date)
+    ended_at = Column(Date)
     days = Column(Integer)
     progress = Column(Integer, nullable=False, server_default="0")
     user_id = Column(Integer, ForeignKey('user.id'))

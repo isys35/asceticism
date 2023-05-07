@@ -33,6 +33,10 @@ function ListAscesis() {
     />
   ));
 
+  const ascesNotFound = (
+    <div className="col text-center text-4xl">Нет актиных аскез</div>
+  );
+
   return (
     <div className="layout-content">
       <div className="flex justify-content-between align-items-center">
@@ -40,10 +44,10 @@ function ListAscesis() {
         <span className="today-date">{today}</span>
       </div>
       <Toolbar
-        className="mb-5"
+        className="mb-8"
         start={toolbarAddAscesa}
       />
-      <div className="grid">{asces}</div>
+      <div className="grid">{asces ? asces : ascesNotFound}</div>
       <CreateAscesisDialog
         visible={visibleDialog}
         setVisible={setVisibleDialog}

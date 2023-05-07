@@ -59,6 +59,7 @@ class AscesaOut(BaseModel):
     name: str
     days: int
     started_at: date
+    ended_at: date
     progress: int
 
     class Config:

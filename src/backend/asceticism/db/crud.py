@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
@@ -76,6 +76,7 @@ def create_ascesa(db: Session, ascesa: schemas.Ascesa, current_user: schemas.Use
         name=ascesa.name,
         days=ascesa.days,
         started_at=ascesa.started_at,
+        ended_at=ascesa.started_at + timedelta(days=ascesa.days),
         progress=progress_days,
         user_id=current_user.id,
     )
