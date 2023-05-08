@@ -6,6 +6,8 @@ import { useToday } from "../../hooks/useToday.jsx";
 import CreateAscesisDialog from "./CreateAscesisDialog.jsx";
 import { useEffect, useState } from "react";
 import { ascesAPI } from "../../api/api.js";
+import { useActivityAsceses } from "../../hooks/useActivityAsceses.jsx";
+import { useActionAsceses } from "../../hooks/useActionAsceses.jsx";
 
 function ListAscesis() {
   const today = useToday();
@@ -13,21 +15,28 @@ function ListAscesis() {
   const [addAscesButtonTitle, setAscesButtonTitle] = useState("");
   useBreadcrumbs([{ label: "Аскезы" }]);
   const [ascesData, setAscesData] = useState([]);
+  const [completeAscesa, deleteAscesa] = useActionAsceses(
+    ascesData,
+    setAscesData,
+  );
+  const hasActiveAsceses = useActivityAsceses(ascesData);
 
   useEffect(() => {
     ascesAPI.list().then(response => setAscesData(response.data));
   }, []);
 
   useEffect(() => {
-    ascesData.length === 0
+    !ascesData.length
       ? setAscesButtonTitle("Добавить аскезу")
       : setAscesButtonTitle("");
   }, [ascesData]);
 
-  const asces = ascesData.map((ascesa_item, index) => (
+  const asces = ascesData.map(ascesa_item => (
     <PureAscesaCard
       ascesa={ascesa_item}
-      key={index}
+      deleteAscesa={deleteAscesa}
+      completeAscesa={completeAscesa}
+      key={ascesa_item.id}
     />
   ));
 
@@ -41,13 +50,11 @@ function ListAscesis() {
     </>
   );
 
-  const toolbarCompleteAsces = (
-    <>
-      <Button
-        icon="pi pi-check"
-        label="Выполнить все"
-      />
-    </>
+  const toolbarCompleteAsces = hasActiveAsceses && (
+    <Button
+      icon="pi pi-check"
+      label="Выполнить все"
+    />
   );
 
   const ascesNotFound = (
@@ -65,7 +72,7 @@ function ListAscesis() {
         start={toolbarCompleteAsces}
         end={toolbarAddAscesa}
       />
-      <div className="grid">{asces ? asces : ascesNotFound}</div>
+      <div className="grid">{asces.length ? asces : ascesNotFound}</div>
       <CreateAscesisDialog
         visible={visibleDialog}
         setVisible={setVisibleDialog}

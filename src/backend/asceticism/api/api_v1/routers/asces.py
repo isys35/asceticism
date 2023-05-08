@@ -2,7 +2,8 @@ from fastapi import APIRouter, Depends, Request, Response
 from starlette.requests import Request
 
 from asceticism.core.auth import get_current_active_user
-from asceticism.db.crud import create_ascesa, get_my_asces, complete_ascesa
+from asceticism.db.crud import create_ascesa, get_my_asces, complete_ascesa, \
+    delete_user_ascesa
 from asceticism.db.session import get_db
 from asceticism.db.schemas import Ascesa, AscesaOut
 
@@ -49,3 +50,17 @@ async def asces_list(
     List asces
     """
     return get_my_asces(db, current_user)
+
+@router.delete(
+    "/asces/{ascesa_id}", response_model=AscesaOut
+)
+async def user_delete(
+    request: Request,
+    ascesa_id: int,
+    db=Depends(get_db),
+    current_user=Depends(get_current_active_user),
+):
+    """
+    Delete existing ascesa
+    """
+    return delete_user_ascesa(db, ascesa_id, current_user)

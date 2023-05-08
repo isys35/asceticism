@@ -1,8 +1,8 @@
 @mixin container {
-    @media screen and (min-width: 1960px) {
+  @media screen and (min-width: 1960px) {
     width: 1504px;
-    margin-left: auto!important;
-    margin-right: auto!important;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 }
 
@@ -16,12 +16,10 @@
   flex-direction: column;
 }
 
-
 .to-asces-btn {
   font-size: 1.75rem;
   width: 100%;
 }
-
 
 .container.static {
   .content-wrapper {
@@ -35,14 +33,12 @@
   }
 }
 
-
 .content-wrapper {
   padding: 2rem;
   min-height: 100vh;
   @include flex-column;
   @include container;
 }
-
 
 .topbar {
   @include flex-align-center;
@@ -123,11 +119,12 @@
 }
 
 .p-card {
-    background: var(--surface-card);
-    border: 1px solid var(--surface-border);
-    padding: 1rem;
-    box-shadow: var(--card-shadow);
-    border-radius: 12px;
+  background: var(--surface-card);
+  border: 1px solid var(--surface-border);
+  padding: 1rem;
+  box-shadow: var(--card-shadow);
+  border-radius: 12px;
+  height: 100%;
 }
 
 .p-toolbar {
