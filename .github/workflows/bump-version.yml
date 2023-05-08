@@ -23,9 +23,8 @@ jobs:
           sudo apt install python3.11
           curl -sSL https://install.python-poetry.org | python3.11 -
           cd src/backend
-          poetry install --only dev
-          poetry env remove --all
           poetry env use 3.11
+          poetry install --only dev
           poetry run cz bump
 #      - id: cz
 #        name: Create bump and changelog
