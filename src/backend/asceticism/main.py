@@ -9,6 +9,7 @@ from asceticism.api.api_v1.routers.auth import auth_router
 from asceticism.core import config
 from asceticism.db.session import SessionLocal
 from asceticism.core.auth import get_current_active_user
+from asceticism.update_asces import main as update_asces
 
 app = FastAPI(
     title=config.PROJECT_NAME, docs_url="/api/docs", openapi_url="/api"
@@ -41,6 +42,9 @@ app.include_router(
 )
 app.include_router(auth_router, tags=["auth"])
 app.include_router(asces_router, tags=["asces"])
+
+# TODO: Add to cron
+update_asces()
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", reload=True, port=8888)

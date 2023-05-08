@@ -130,6 +130,7 @@ function Base() {
           dismissable={false}
           showCloseIcon={false}
           icons={menuHeader}>
+          {/*TODO: Заменить на ListItem*/}
           <Menu model={menuItems} />
         </Sidebar>
         <Outlet context={{ toast, breadcrumbs, setBreadcrumbs }} />
