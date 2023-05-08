@@ -26,7 +26,7 @@ jobs:
           poetry env use 3.11
           poetry install --only dev
           git config --global user.email "isys35@mail.com"
-          git config -- global user.name GithubActionBot
+          git config --global user.name GithubActionBot
           poetry run cz bump
 #      - id: cz
 #        name: Create bump and changelog
