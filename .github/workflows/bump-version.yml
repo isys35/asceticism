@@ -28,6 +28,7 @@ jobs:
           git config --global user.email "isys35@mail.com"
           git config --global user.name GithubActionBot
           poetry run cz bump
+          git push
 #      - id: cz
 #        name: Create bump and changelog
 #        uses: commitizen-tools/commitizen-action@master
