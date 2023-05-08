@@ -4,7 +4,6 @@ on:
   push:
     branches: [ "main" ]
 
-permissions: write-all
 
 jobs:
   bump_version:
@@ -17,14 +16,15 @@ jobs:
         with:
           fetch-depth: 0
           token: "${{ secrets.TOKEN }}"
-          ref: "${{ github.head_ref }}"
-      - name: Install Poetry
+      - name: Bump version
         run: |
-          echo "dasdasd"
-#      - id: cz
-#        name: Create bump and changelog
-#        uses: commitizen-tools/commitizen-action@master
-#        with:
-#          github_token: ${{ secrets.TOKEN }}
-#      - name: Print Version
-#        run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
+          sudo apt install python3.11
+          curl -sSL https://install.python-poetry.org | python3.11 -
+          cd src/backend
+          poetry env use 3.11
+          poetry install --only dev
+          git config --global user.email "isys35@mail.com"
+          git config --global user.name GithubActionBot
+          poetry run cz bump
+          git push
+          git push --tags
