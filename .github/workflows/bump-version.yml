@@ -24,7 +24,7 @@ jobs:
           curl -sSL https://install.python-poetry.org | python3.11 -
           cd src/backend
           poetry install --only dev
-          cz bump
+          poetry run cz bump
 #      - id: cz
 #        name: Create bump and changelog
 #        uses: commitizen-tools/commitizen-action@master
