@@ -1,12 +1,14 @@
 [tool.commitizen]
-version = "0.0.12"
+version = "0.0.15"
 version_files = [
     "pyproject.toml:version"
 ]
+update_changelog_on_bump = true
+annotated_tag = true
 
 [tool.poetry]
 name = "asceticism"
-version = "0.0.12"
+version = "0.0.15"
 description = ""
 authors = ["Your Name <you@example.com>"]
 readme = "README.md"
