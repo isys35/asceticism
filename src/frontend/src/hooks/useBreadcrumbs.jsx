@@ -25,5 +25,5 @@ export function useBreadcrumbs(breadcrumbs) {
     return () => {
       setBreadcrumbs([]);
     };
-  }, [breadcrumbs, setBreadcrumbs]);
+  }, []);
 }

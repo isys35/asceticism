@@ -5,7 +5,6 @@ import useWidgetMainProps from "../../../hooks/useWidgetMainProps.jsx";
 
 export default function AInputText(props) {
   const widgetMainProps = useWidgetMainProps(props);
-
   return (
     <FieldWrapper {...props}>
       <InputText {...widgetMainProps} />

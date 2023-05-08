@@ -56,10 +56,13 @@ class Ascesa(BaseModel):
 
 
 class AscesaOut(BaseModel):
+    id: int
     name: str
     days: int
     started_at: date
+    ended_at: date
     progress: int
+    completed_active_day: bool
 
     class Config:
         orm_mode = True

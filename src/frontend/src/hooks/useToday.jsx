@@ -1,14 +1,10 @@
 import { useLayoutEffect, useState } from "react";
+import { toLocaleDate } from "../utils/toLocaleDate.js";
 
 export function useToday() {
   const [today, setToday] = useState(null);
   useLayoutEffect(() => {
-    const options = {
-      year: "numeric",
-      month: "numeric",
-      day: "numeric",
-    };
-    setToday(new Date().toLocaleString("ru-RU", options));
+    setToday(toLocaleDate(new Date()));
   }, []);
   return today;
 }

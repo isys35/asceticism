@@ -5,10 +5,13 @@ import useWidgetMainProps from "../../../hooks/useWidgetMainProps.jsx";
 
 export default function AInputNumber(props) {
   const widgetMainProps = useWidgetMainProps(props);
-
+  delete widgetMainProps.onChange;
   return (
     <FieldWrapper {...props}>
-      <InputNumber {...widgetMainProps} />
+      <InputNumber
+        {...widgetMainProps}
+        onValueChange={props.formik.handleChange}
+      />
     </FieldWrapper>
   );
 }

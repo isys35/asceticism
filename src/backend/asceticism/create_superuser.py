@@ -5,7 +5,7 @@ from asceticism.db.session import SessionLocal
 from getpass import getpass
 
 
-def init() -> None:
+def main() -> None:
     db = SessionLocal()
     email = input("Введите email: ")
     password = getpass(prompt="Введите пароль: ")
@@ -22,5 +22,5 @@ def init() -> None:
 
 if __name__ == "__main__":
     print("Создание суперпользователя")
-    init()
+    main()
     print("Суперпользователь создан")

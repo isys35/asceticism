@@ -1,6 +1,7 @@
-from datetime import date
+from datetime import date, timedelta
 
 from fastapi import HTTPException, status
+from sqlalchemy import false, true
 from sqlalchemy.orm import Session
 
 from . import models, schemas
@@ -18,7 +19,9 @@ def get_user_by_email(db: Session, email: str) -> schemas.UserBase:
     return db.query(models.User).filter(models.User.email == email).first()
 
 
-def get_users(db: Session, skip: int = 0, limit: int = 100) -> list[schemas.UserOut]:
+def get_users(
+    db: Session, skip: int = 0, limit: int = 100
+) -> list[schemas.UserOut]:
     return db.query(models.User).offset(skip).limit(limit).all()
 
 
@@ -47,7 +50,9 @@ def delete_user(db: Session, user_id: int):
     return user
 
 
-def edit_user(db: Session, user_id: int, user: schemas.UserEdit) -> schemas.User:
+def edit_user(
+    db: Session, user_id: int, user: schemas.UserEdit
+) -> schemas.User:
     db_user = get_user(db, user_id)
     if not db_user:
         raise HTTPException(status.HTTP_404_NOT_FOUND, detail="User not found")
@@ -66,8 +71,10 @@ def edit_user(db: Session, user_id: int, user: schemas.UserEdit) -> schemas.User
     return db_user
 
 
-def create_ascesa(db: Session, ascesa: schemas.Ascesa, current_user: schemas.User):
-    progress_days = (date.today() - ascesa.started_at).days
+def create_ascesa(
+    db: Session, ascesa: schemas.Ascesa, current_user: schemas.User
+):
+    progress_days = (date.today() - ascesa.started_at).days - 1
     if progress_days < 0:
         progress_days = 0
     elif progress_days > ascesa.days:
@@ -76,6 +83,7 @@ def create_ascesa(db: Session, ascesa: schemas.Ascesa, current_user: schemas.Use
         name=ascesa.name,
         days=ascesa.days,
         started_at=ascesa.started_at,
+        ended_at=ascesa.started_at + timedelta(days=ascesa.days),
         progress=progress_days,
         user_id=current_user.id,
     )
@@ -85,10 +93,52 @@ def create_ascesa(db: Session, ascesa: schemas.Ascesa, current_user: schemas.Use
     return db_acsesa
 
 
-def get_my_asces(db: Session, current_user, skip: int = 0, limit: int = 100) -> list[schemas.AscesaOut]:
-    return db.query(models.Ascesa).filter(
-        models.Ascesa.user_id == current_user.id
-    ).offset(skip).limit(limit).all()
+def complete_ascesa(db: Session, ascesa_id: int, current_user: schemas.User):
+    ascesa = (
+        db.query(models.Ascesa)
+        .filter(
+            models.Ascesa.id == ascesa_id,
+            models.Ascesa.user_id == current_user.id,
+            models.Ascesa.failed == false(),
+        )
+        .first()
+    )
+    if not ascesa:
+        raise HTTPException(status_code=404, detail="Ascesa not found")
+    ascesa.progress += 1
+    ascesa.completed_active_day = True
+    db.add(ascesa)
+    db.commit()
+    db.refresh(ascesa)
+    return ascesa
+
+
+def update_asces(db: Session):
+    today = date.today()
+    db.query(models.Ascesa).filter(
+        models.Ascesa.active_day < today,
+        models.Ascesa.completed_active_day == false(),
+    ).update({"failed": True})
+    db.query(models.Ascesa).filter(
+        models.Ascesa.active_day < today,
+        models.Ascesa.completed_active_day == true(),
+    ).update({"active_day": today, "completed_active_day": False})
+    db.commit()
+
+
+def get_my_asces(
+    db: Session, current_user, skip: int = 0, limit: int = 100
+) -> list[schemas.AscesaOut]:
+    return (
+        db.query(models.Ascesa)
+        .filter(
+            models.Ascesa.user_id == current_user.id,
+            models.Ascesa.failed == false(),
+        )
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
 
 
 def set_user_homepage_viewed(db: Session, user: models.User) -> models.User:

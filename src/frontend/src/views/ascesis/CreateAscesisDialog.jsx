@@ -17,7 +17,7 @@ const CreateAscesisSchema = Yup.object().shape({
   days: Yup.number().integer().min(1).max(1000).required(REQUIRED_MESSAGE),
 });
 
-function CreateAscesisDialog({ visible, setVisible }) {
+function CreateAscesisDialog({ visible, setVisible, ascesData, setAscesData }) {
   const { toast } = useToast();
   const [started_at] = useState(new Date());
   const formik = useFormik({
@@ -28,7 +28,8 @@ function CreateAscesisDialog({ visible, setVisible }) {
     },
     validationSchema: CreateAscesisSchema,
     onSubmit: async values => {
-      ascesAPI.create(values).then(() => {
+      ascesAPI.create(values).then(response => {
+        setAscesData([...ascesData, response.data]);
         setVisible(false);
         toast.current.show({
           severity: "success",
@@ -75,6 +76,8 @@ function CreateAscesisDialog({ visible, setVisible }) {
 CreateAscesisDialog.propTypes = {
   visible: PropTypes.bool,
   setVisible: PropTypes.func,
+  ascesData: PropTypes.array,
+  setAscesData: PropTypes.func,
 };
 
 export default CreateAscesisDialog;
