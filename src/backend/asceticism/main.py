@@ -10,7 +10,9 @@ from asceticism.core import config
 from asceticism.db.session import SessionLocal
 from asceticism.core.auth import get_current_active_user
 
-app = FastAPI(title=config.PROJECT_NAME, docs_url="/api/docs", openapi_url="/api")
+app = FastAPI(
+    title=config.PROJECT_NAME, docs_url="/api/docs", openapi_url="/api"
+)
 
 origins = ["*"]
 

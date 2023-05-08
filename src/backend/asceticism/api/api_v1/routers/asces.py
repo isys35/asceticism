@@ -9,12 +9,14 @@ from asceticism.db.schemas import Ascesa, AscesaOut
 asces_router = router = APIRouter(prefix="/api/v1")
 
 
-@router.post("/asces", response_model=AscesaOut, response_model_exclude_none=True)
+@router.post(
+    "/asces", response_model=AscesaOut, response_model_exclude_none=True
+)
 async def ascesa_create(
-        request: Request,
-        ascesa: Ascesa,
-        db=Depends(get_db),
-        current_user=Depends(get_current_active_user),
+    request: Request,
+    ascesa: Ascesa,
+    db=Depends(get_db),
+    current_user=Depends(get_current_active_user),
 ):
     """
     Create ascesa
@@ -24,10 +26,10 @@ async def ascesa_create(
 
 @router.post("/asces/{ascesa_id}/complete", response_model=AscesaOut)
 async def ascesa_complete(
-        request: Request,
-        ascesa_id: int,
-        db=Depends(get_db),
-        current_user=Depends(get_current_active_user),
+    request: Request,
+    ascesa_id: int,
+    db=Depends(get_db),
+    current_user=Depends(get_current_active_user),
 ):
     """
     Complete ascesa
@@ -35,11 +37,13 @@ async def ascesa_complete(
     return complete_ascesa(db, ascesa_id, current_user)
 
 
-@router.get("/asces", response_model=list[AscesaOut], response_model_exclude_none=True)
+@router.get(
+    "/asces", response_model=list[AscesaOut], response_model_exclude_none=True
+)
 async def asces_list(
-        response: Response,
-        db=Depends(get_db),
-        current_user=Depends(get_current_active_user),
+    response: Response,
+    db=Depends(get_db),
+    current_user=Depends(get_current_active_user),
 ):
     """
     List asces

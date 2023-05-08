@@ -9,7 +9,10 @@ from asceticism.db.crud import (
     edit_user,
 )
 from asceticism.db.schemas import User, UserCreate, UserEdit
-from asceticism.core.auth import get_current_active_user, get_current_active_superuser
+from asceticism.core.auth import (
+    get_current_active_user,
+    get_current_active_superuser,
+)
 
 users_router = router = APIRouter(prefix="/api/v1")
 
@@ -68,7 +71,9 @@ async def user_create(
     return create_user(db, user)
 
 
-@router.put("/users/{user_id}", response_model=User, response_model_exclude_none=True)
+@router.put(
+    "/users/{user_id}", response_model=User, response_model_exclude_none=True
+)
 async def user_edit(
     request: Request,
     user_id: int,
@@ -82,7 +87,9 @@ async def user_edit(
     return edit_user(db, user_id, user)
 
 
-@router.delete("/users/{user_id}", response_model=User, response_model_exclude_none=True)
+@router.delete(
+    "/users/{user_id}", response_model=User, response_model_exclude_none=True
+)
 async def user_delete(
     request: Request,
     user_id: int,

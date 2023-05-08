@@ -142,3 +142,5 @@ build_test.sh
 **/node_modules/
 
 .commit
+
+/src/backend/.pre-commit
