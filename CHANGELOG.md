@@ -1,3 +1,39 @@
+## 0.0.12 (2023-05-07)
+
+### Fix
+
+- prettier
+
+## 0.0.11 (2023-05-05)
+
+### Fix
+
+- add default fields
+- create ascesis in modal
+- add modal create ascesis
+- add today hook
+
+## 0.0.10 (2023-05-04)
+
+### Fix
+
+- add today date
+- add asces list
+- style sidebar
+- sidebar style
+- add burger
+- add breadcrumbs
+- only one redirect to the home page
+- add main page
+- add profile menu
+- verstka
+
+## 0.0.9 (2023-04-25)
+
+### Fix
+
+- fix login page
+
 ## 0.0.8 (2023-04-25)
 
 ### Fix
