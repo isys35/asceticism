@@ -1,3 +1,10 @@
+## 0.0.16 (2023-05-08)
+
+### Fix
+
+- remove docker
+- add complete and delete ascesa from array
+
 ## 0.0.15 (2023-05-08)
 
 ### Fix
