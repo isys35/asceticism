@@ -29,14 +29,14 @@ function AscesaCard({ ascesa }) {
   );
 
   useEffect(() => {
-    if (ascesaItem.completed_today) {
+    if (ascesaItem.completed_active_day) {
       setCompleteButtonTitle("");
       setCompleteButtonDisabled(true);
     } else {
       setCompleteButtonTitle("Выполнить");
       setCompleteButtonDisabled(false);
     }
-  }, [ascesaItem.completed_today]);
+  }, [ascesaItem.completed_active_day]);
 
   return (
     <div className="col-12 md:col-6">

@@ -62,7 +62,7 @@ class AscesaOut(BaseModel):
     started_at: date
     ended_at: date
     progress: int
-    completed_today: bool
+    completed_active_day: bool
 
     class Config:
         orm_mode = True
