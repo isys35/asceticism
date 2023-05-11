@@ -3,7 +3,7 @@ from starlette.requests import Request
 
 from asceticism.core.auth import get_current_active_user
 from asceticism.db.crud import create_ascesa, get_my_asces, complete_ascesa, \
-    delete_user_ascesa
+    delete_user_ascesa, complete_all_asceses
 from asceticism.db.session import get_db
 from asceticism.db.schemas import Ascesa, AscesaOut
 
@@ -64,3 +64,15 @@ async def user_delete(
     Delete existing ascesa
     """
     return delete_user_ascesa(db, ascesa_id, current_user)
+
+
+@router.post("/asces/complete", response_model=list[AscesaOut])
+async def ascesa_complete_all(
+    request: Request,
+    db=Depends(get_db),
+    current_user=Depends(get_current_active_user),
+):
+    """
+    Complete all asceses
+    """
+    return complete_all_asceses(db, current_user)

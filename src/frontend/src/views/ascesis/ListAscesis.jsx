@@ -54,6 +54,9 @@ function ListAscesis() {
     <Button
       icon="pi pi-check"
       label="Выполнить все"
+      onClick={() =>
+        ascesAPI.complete_all().then(response => setAscesData(response.data))
+      }
     />
   );
 

@@ -2,3 +2,4 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 cd src/frontend && npx lint-staged
+cd .. && backend/.pre-commit/pre-commit
