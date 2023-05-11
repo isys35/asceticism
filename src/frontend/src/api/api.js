@@ -13,4 +13,5 @@ export const ascesAPI = {
   delete: ascesa_id => {
     return API.delete(`/asces/${ascesa_id}`);
   },
+  complete_all: () => API.post("/asces/complete"),
 };

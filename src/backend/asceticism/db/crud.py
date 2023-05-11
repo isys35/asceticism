@@ -172,3 +172,21 @@ def delete_user_ascesa(db: Session, ascesa_id: int, current_user: schemas.User):
     db.delete(ascesa)
     db.commit()
     return ascesa
+
+
+
+def complete_all_asceses(db: Session, current_user: schemas.User):
+    asceses = db.query(models.Ascesa).filter(
+            models.Ascesa.user_id == current_user.id,
+            models.Ascesa.failed == false(),
+            models.Ascesa.active_day == date.today(),
+            models.Ascesa.completed_active_day == false()
+        )
+    asceses.update(
+            {
+                models.Ascesa.completed_active_day: True,
+                models.Ascesa.progress: models.Ascesa.progress+1
+            }
+        )
+    db.commit()
+    return get_my_asces(db, current_user)

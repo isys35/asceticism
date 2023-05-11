@@ -66,9 +66,7 @@ function AscesaCard({ ascesa, deleteAscesa, completeAscesa }) {
 
   const title = (
     <div className="flex justify-content-between align-items-center">
-      <div>
-        {ascesa.name} {ascesa.id}
-      </div>
+      <div>{ascesa.name}</div>
       <Button
         icon="pi pi-ellipsis-h"
         rounded
