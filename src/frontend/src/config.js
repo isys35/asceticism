@@ -1,5 +1,8 @@
 export const BASE_URL = "http://127.0.0.1:8000";
 export const AUTH_URL = BASE_URL + "/api/token";
+
+const GITHUB_APP_ID = "c42ead5bc537447a0cd0";
+export const GITHUB_AUTH_LINK = `https://github.com/login/oauth/authorize?client_id=${GITHUB_APP_ID}`;
 export const API_URL = BASE_URL + "/api/v1";
 
 export const REQUIRED_MESSAGE = "Обязательное поле";

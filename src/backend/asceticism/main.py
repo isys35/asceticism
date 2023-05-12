@@ -35,13 +35,17 @@ app.add_middleware(
 )
 
 # Routers
+app.include_router(auth_router, tags=["auth"])
 app.include_router(
     users_router,
     tags=["users"],
     dependencies=[Depends(get_current_active_user)],
 )
-app.include_router(auth_router, tags=["auth"])
-app.include_router(asces_router, tags=["asces"])
+app.include_router(
+    asces_router,
+    tags=["asces"],
+    dependencies=[Depends(get_current_active_user)],
+)
 
 # TODO: Add to cron
 update_asces()

@@ -2,6 +2,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from fastapi import APIRouter, Depends, HTTPException, status
 from datetime import timedelta
 
+
 from asceticism.db.crud import set_user_homepage_viewed
 from asceticism.db.session import get_db
 from asceticism.core import security

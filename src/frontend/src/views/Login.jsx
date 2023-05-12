@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 import { Toast } from "primereact/toast";
 import { Navigate } from "react-router-dom";
 import { Message } from "primereact/message";
+import { GITHUB_AUTH_LINK } from "../config.js";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -95,6 +96,21 @@ function Login() {
             className="w-full mt-4"
             onClick={handleSubmit}
           />
+          <p className="mt-5 font-semibold">
+            Или войдите с помощью других сервисов
+          </p>
+          <div className="flex">
+            <a href={GITHUB_AUTH_LINK}>
+              <Button
+                className="mr-4"
+                label="Github"
+                icon="pi pi-github"
+              />
+            </a>
+            <Button
+              label="Google"
+              icon="pi pi-google"></Button>
+          </div>
         </div>
       </div>
     </div>

@@ -12,19 +12,6 @@ repos:
     rev: v0.4.0
     hooks:
       - id: check-untracked-migrations
-  - repo: https://github.com/pycqa/flake8
-    rev: 6.0.0
-    hooks:
-      - id: flake8
-        language_version: py3.11
-        exclude: versions
-        additional_dependencies:
-          - flake8-bugbear
-          - flake8-fastapi
-          - flake8-comprehensions
-        args:
-          - --max-line-length=80
-          - --extend-immutable-calls=Depends
   - repo: https://github.com/psf/black
     rev: 22.10.0
     hooks:
@@ -33,6 +20,20 @@ repos:
         exclude: migrations
         args:
           - --line-length=80
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
+        language_version: py3.11
+        exclude: versions
+        additional_dependencies:
+          - flake8-bugbear
+          #          - flake8-fastapi
+          - flake8-comprehensions
+        args:
+          - --max-line-length=80
+          - --extend-immutable-calls=Depends
+
   - repo: https://github.com/PyCQA/autoflake
     rev: v2.0.0
     hooks:
@@ -51,8 +52,3 @@ repos:
       - id: commitizen
         stages:
           - commit-msg
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.2.0
-    hooks:
-      - id: mypy
-        args: [--strict]

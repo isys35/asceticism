@@ -8,6 +8,7 @@ import Home from "../views/Home.jsx";
 import { PrivateRoute } from "./PrivateRoute.jsx";
 import React from "react";
 import ListAscesis from "../views/ascesis/ListAscesis.jsx";
+import { GitHub } from "../views/oauth/GitHub.jsx";
 
 const Error = () => {
   return <div>Ошибка</div>;
@@ -19,6 +20,10 @@ const router = createBrowserRouter(
       <Route
         path="login"
         element={<Login />}
+      />
+      <Route
+        path="oauth/github"
+        element={<GitHub />}
       />
       <Route
         element={<PrivateRoute />}
