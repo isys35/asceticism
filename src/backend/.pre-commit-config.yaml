@@ -27,12 +27,10 @@ repos:
         language_version: py3.11
         exclude: versions
         additional_dependencies:
-          - flake8-bugbear
-          #          - flake8-fastapi
+          - flake8-fastapi
           - flake8-comprehensions
         args:
           - --max-line-length=80
-          - --extend-immutable-calls=Depends
 
   - repo: https://github.com/PyCQA/autoflake
     rev: v2.0.0

@@ -1,5 +1,5 @@
 import decodeJwt from "jwt-decode";
-import { AUTH_URL } from "../config.js";
+import { AUTH_URL, BACK_GITHUB_OAUTH_URL } from "../config.js";
 
 export const isAuthenticated = () => {
   const permissions = localStorage.getItem("permissions");
@@ -48,16 +48,7 @@ export const login = async (email, password) => {
   }
 
   if ("access_token" in data) {
-    const decodedToken = decodeJwt(data["access_token"]);
-    localStorage.setItem("token", data["access_token"]);
-    localStorage.setItem("permissions", decodedToken.permissions);
-    localStorage.setItem("email", decodedToken.email);
-    localStorage.setItem("first_name", JSON.stringify(decodedToken.first_name));
-    localStorage.setItem("last_name", JSON.stringify(decodedToken.last_name));
-    localStorage.setItem(
-      "homepage_viewed",
-      JSON.stringify(decodedToken.homepage_viewed),
-    );
+    setJwtData(data);
   }
 
   return data;
@@ -66,4 +57,26 @@ export const login = async (email, password) => {
 export const logout = () => {
   localStorage.clear();
   window.location.replace("/login");
+};
+
+export const githubOAuth = async code => {
+  let url = BACK_GITHUB_OAUTH_URL + `/${code}`;
+  let response = await fetch(url, { method: "GET" });
+  if (!response.ok) {
+    throw "AuthError";
+  }
+  return await response.json();
+};
+
+export const setJwtData = data => {
+  const decodedToken = decodeJwt(data["access_token"]);
+  localStorage.setItem("token", data["access_token"]);
+  localStorage.setItem("permissions", decodedToken.permissions);
+  localStorage.setItem("email", decodedToken.email);
+  localStorage.setItem("first_name", JSON.stringify(decodedToken.first_name));
+  localStorage.setItem("last_name", JSON.stringify(decodedToken.last_name));
+  localStorage.setItem(
+    "homepage_viewed",
+    JSON.stringify(decodedToken.homepage_viewed),
+  );
 };

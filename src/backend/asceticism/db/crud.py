@@ -20,7 +20,7 @@ def get_user_by_email(db: Session, email: str) -> schemas.UserBase:
 
 
 def get_users(
-        db: Session, skip: int = 0, limit: int = 100
+    db: Session, skip: int = 0, limit: int = 100
 ) -> list[schemas.UserOut]:
     return db.query(models.User).offset(skip).limit(limit).all()
 
@@ -41,6 +41,17 @@ def create_user(db: Session, user: schemas.UserCreate):
     return db_user
 
 
+def create_oauth_user(db: Session, user_email: str):
+    db_user = models.User(
+        email=user_email,
+        hashed_password="oauth",
+    )
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
+
 def delete_user(db: Session, user_id: int):
     user = get_user(db, user_id)
     if not user:
@@ -51,7 +62,7 @@ def delete_user(db: Session, user_id: int):
 
 
 def edit_user(
-        db: Session, user_id: int, user: schemas.UserEdit
+    db: Session, user_id: int, user: schemas.UserEdit
 ) -> schemas.User:
     db_user = get_user(db, user_id)
     if not db_user:
@@ -72,7 +83,7 @@ def edit_user(
 
 
 def create_ascesa(
-        db: Session, ascesa: schemas.Ascesa, current_user: schemas.User
+    db: Session, ascesa: schemas.Ascesa, current_user: schemas.User
 ):
     progress_days = (date.today() - ascesa.started_at).days - 1
     if progress_days < 0:
@@ -133,7 +144,7 @@ def update_asces(db: Session):
 
 
 def get_my_asces(
-        db: Session, current_user, skip: int = 0, limit: int = 100
+    db: Session, current_user, skip: int = 0, limit: int = 100
 ) -> list[schemas.AscesaOut]:
     return (
         db.query(models.Ascesa)
@@ -155,10 +166,14 @@ def set_user_homepage_viewed(db: Session, user: models.User) -> models.User:
 
 
 def get_user_acesa(db: Session, ascesa_id: int, current_user: schemas.User):
-    ascesa = db.query(models.Ascesa).filter(
-        models.Ascesa.id == ascesa_id,
-        models.Ascesa.user_id == current_user.id
-    ).first()
+    ascesa = (
+        db.query(models.Ascesa)
+        .filter(
+            models.Ascesa.id == ascesa_id,
+            models.Ascesa.user_id == current_user.id,
+        )
+        .first()
+    )
     if not ascesa:
         raise HTTPException(status_code=404, detail="Ascesa not found")
     return ascesa
@@ -167,26 +182,26 @@ def get_user_acesa(db: Session, ascesa_id: int, current_user: schemas.User):
 def delete_user_ascesa(db: Session, ascesa_id: int, current_user: schemas.User):
     ascesa = get_user_acesa(db, ascesa_id, current_user)
     if not ascesa:
-        raise HTTPException(status.HTTP_404_NOT_FOUND,
-                            detail="Ascesa not found")
+        raise HTTPException(
+            status.HTTP_404_NOT_FOUND, detail="Ascesa not found"
+        )
     db.delete(ascesa)
     db.commit()
     return ascesa
 
 
-
 def complete_all_asceses(db: Session, current_user: schemas.User):
     asceses = db.query(models.Ascesa).filter(
-            models.Ascesa.user_id == current_user.id,
-            models.Ascesa.failed == false(),
-            models.Ascesa.active_day == date.today(),
-            models.Ascesa.completed_active_day == false()
-        )
+        models.Ascesa.user_id == current_user.id,
+        models.Ascesa.failed == false(),
+        models.Ascesa.active_day == date.today(),
+        models.Ascesa.completed_active_day == false(),
+    )
     asceses.update(
-            {
-                models.Ascesa.completed_active_day: True,
-                models.Ascesa.progress: models.Ascesa.progress+1
-            }
-        )
+        {
+            models.Ascesa.completed_active_day: True,
+            models.Ascesa.progress: models.Ascesa.progress + 1,
+        }
+    )
     db.commit()
     return get_my_asces(db, current_user)
