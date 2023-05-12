@@ -1,20 +1,25 @@
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 import { githubOAuth, setJwtData } from "../../auth/auth.js";
-import { useNavigate } from "react-router";
+import useMainRedirect from "../../hooks/useMainRedirect.jsx";
+import { ProgressBar } from "primereact/progressbar";
 
 export function GitHub() {
   let [searchParams] = useSearchParams();
-  let navigate = useNavigate();
+  const redirect = useMainRedirect();
 
   useEffect(() => {
     githubOAuth(searchParams.get("code")).then(result => {
       if ("access_token" in result) {
         setJwtData(result);
-        return navigate("/");
+        redirect();
       }
     });
   }, []);
 
-  return <div>Проверка подленности токена</div>;
+  return (
+    <ProgressBar
+      mode="indeterminate"
+      style={{ height: "6px" }}></ProgressBar>
+  );
 }

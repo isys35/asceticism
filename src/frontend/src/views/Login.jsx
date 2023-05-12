@@ -3,17 +3,17 @@ import { Button } from "primereact/button";
 import React, { useRef, useState } from "react";
 import { isAuthenticated, login } from "../auth/auth.js";
 import classNames from "classnames";
-import { useNavigate } from "react-router";
 import { Toast } from "primereact/toast";
 import { Navigate } from "react-router-dom";
 import { Message } from "primereact/message";
 import { GITHUB_AUTH_URL } from "../config.js";
+import useMainRedirect from "../hooks/useMainRedirect.jsx";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  let navigate = useNavigate();
+  const redirect = useMainRedirect();
   const toast = useRef(null);
 
   const errorClass = classNames({
@@ -25,14 +25,7 @@ function Login() {
     try {
       const data = await login(email, password);
       if (data) {
-        const homepage_viewed = JSON.parse(
-          localStorage.getItem("homepage_viewed"),
-        );
-        if (homepage_viewed) {
-          return navigate("/asces");
-        } else {
-          return navigate("/");
-        }
+        redirect();
       }
     } catch (error) {
       if (error instanceof Error) {
