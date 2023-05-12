@@ -1,9 +1,15 @@
+from datetime import timedelta
+
 import jwt
 from fastapi import Depends, HTTPException, status
 from jwt import PyJWTError
 
 from asceticism.db import models, schemas, session
-from asceticism.db.crud import get_user_by_email, create_user
+from asceticism.db.crud import (
+    get_user_by_email,
+    create_user,
+    set_user_homepage_viewed,
+)
 from asceticism.core import security
 
 
@@ -73,3 +79,25 @@ def sign_up_new_user(db, email: str, password: str):
         ),
     )
     return new_user
+
+
+def create_access_token(db, user: models.User):
+    access_token_expires = timedelta(
+        minutes=security.ACCESS_TOKEN_EXPIRE_MINUTES
+    )
+    if user.is_superuser:
+        permissions = "admin"
+    else:
+        permissions = "user"
+    access_token = security.create_access_token(
+        data={
+            "email": user.email,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+            "homepage_viewed": user.homepage_viewed,
+            "permissions": permissions,
+        },
+        expires_delta=access_token_expires,
+    )
+    set_user_homepage_viewed(db, user)
+    return {"access_token": access_token, "token_type": "bearer"}
