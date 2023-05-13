@@ -1,3 +1,10 @@
+## 0.0.19 (2023-05-13)
+
+### Fix
+
+- reset ascesa
+- remove google button
+
 ## 0.0.18 (2023-05-12)
 
 ### Fix
