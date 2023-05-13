@@ -15,7 +15,7 @@ function ListAscesis() {
   const [addAscesButtonTitle, setAscesButtonTitle] = useState("");
   useBreadcrumbs([{ label: "Аскезы" }]);
   const [ascesData, setAscesData] = useState([]);
-  const [completeAscesa, deleteAscesa] = useActionAsceses(
+  const [changeAscesa, deleteAscesa] = useActionAsceses(
     ascesData,
     setAscesData,
   );
@@ -35,7 +35,7 @@ function ListAscesis() {
     <PureAscesaCard
       ascesa={ascesa_item}
       deleteAscesa={deleteAscesa}
-      completeAscesa={completeAscesa}
+      changeAscesa={changeAscesa}
       key={ascesa_item.id}
     />
   ));

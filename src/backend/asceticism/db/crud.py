@@ -190,6 +190,18 @@ def delete_user_ascesa(db: Session, ascesa_id: int, current_user: schemas.User):
     return ascesa
 
 
+def reset_user_ascesa(db: Session, ascesa_id: int, current_user: schemas.User):
+    ascesa = get_user_acesa(db, ascesa_id, current_user)
+    if not ascesa:
+        raise HTTPException(
+            status.HTTP_404_NOT_FOUND, detail="Ascesa not found"
+        )
+    ascesa.completed_active_day = False
+    ascesa.progress -= 1
+    db.commit()
+    return ascesa
+
+
 def complete_all_asceses(db: Session, current_user: schemas.User):
     asceses = db.query(models.Ascesa).filter(
         models.Ascesa.user_id == current_user.id,
