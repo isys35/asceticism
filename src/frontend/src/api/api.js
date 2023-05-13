@@ -14,4 +14,7 @@ export const ascesAPI = {
     return API.delete(`/asces/${ascesa_id}`);
   },
   complete_all: () => API.post("/asces/complete"),
+  reset: ascesa_id => {
+    return API.post(`/asces/${ascesa_id}/reset`);
+  },
 };

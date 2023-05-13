@@ -100,9 +100,6 @@ function Login() {
                 icon="pi pi-github"
               />
             </a>
-            <Button
-              label="Google"
-              icon="pi pi-google"></Button>
           </div>
         </div>
       </div>
