@@ -14,7 +14,7 @@ services:
 
   back:
     build: ../../backend
-    command: > 
+    command: >
       bash -c "cd asceticism 
       && poetry add gunicorn
       && poetry run alembic upgrade head 
@@ -29,7 +29,7 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-        - db
+      - db
     container_name: server_asceticism_back
 
   front:
@@ -39,6 +39,8 @@ services:
     volumes:
       - server_front:/asceticism/dist
     container_name: server_asceticism_front
+    environment:
+      VITE_BACKEND_URL: ${BACKEND_URL}
 
 volumes:
   server_db:
