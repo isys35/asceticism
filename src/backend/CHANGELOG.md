@@ -1,3 +1,11 @@
+## 0.0.21 (2023-05-16)
+
+### Fix
+
+- check nginx
+- back url in env
+- deploy config
+
 ## 0.0.20 (2023-05-16)
 
 ### Fix
