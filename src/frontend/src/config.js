@@ -1,4 +1,5 @@
-export const BASE_URL = "http://127.0.0.1:8000";
+export const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+
 export const AUTH_URL = BASE_URL + "/api/token";
 
 const GITHUB_APP_ID = "c42ead5bc537447a0cd0";
