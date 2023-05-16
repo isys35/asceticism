@@ -1,0 +1,45 @@
+version: "3.7"
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - server_db:/var/lib/postgresql/data/
+    container_name: server_asceticism_db
+
+  back:
+    build: ../../backend
+    command: > 
+      bash -c "cd asceticism 
+      && poetry add gunicorn
+      && poetry run alembic upgrade head 
+      && poetry run gunicorn main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000"
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_URL: ${DATABASE_URL}
+    ports:
+      - "8000:8000"
+    depends_on:
+        - db
+    container_name: server_asceticism_back
+
+  front:
+    build: ../../frontend
+    command: >
+      bash -c "npm run build"
+    volumes:
+      - server_front:/asceticism/dist
+    container_name: server_asceticism_front
+
+volumes:
+  server_db:
+  server_front:
