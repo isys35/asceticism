@@ -26,8 +26,6 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_HOST: ${DATABASE_HOST}
       DATABASE_URL: ${DATABASE_URL}
-    ports:
-      - "8000:8000"
     depends_on:
       - db
     container_name: server_asceticism_back
@@ -38,9 +36,12 @@ services:
       - ./nginx_front:/etc/nginx/conf.d
     ports:
       - "8080:80"
-    container_name: server_asceticism_front
+      - "8081:81"
     environment:
       VITE_BACKEND_URL: ${BACKEND_URL}
+    depends_on:
+      - back
+    container_name: server_asceticism_front
 
 volumes:
   server_db:
