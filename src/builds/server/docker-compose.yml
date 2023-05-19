@@ -34,10 +34,10 @@ services:
 
   front:
     build: ../../frontend
-    command: >
-      bash -c "npm run build"
     volumes:
-      - server_front:/asceticism/dist
+      - ./nginx_front:/etc/nginx/conf.d
+    ports:
+      - "8080:80"
     container_name: server_asceticism_front
     environment:
       VITE_BACKEND_URL: ${BACKEND_URL}
