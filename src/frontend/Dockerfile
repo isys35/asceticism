@@ -1,13 +1,7 @@
-FROM node:20 AS builder
+FROM node:latest
 
-WORKDIR /asceticism
+WORKDIR /front
 
 COPY . .
 
 RUN npm install
-RUN npm run build
-
-FROM nginx:latest
-
-WORKDIR /front_dist
-COPY --from=builder /asceticism/dist .
