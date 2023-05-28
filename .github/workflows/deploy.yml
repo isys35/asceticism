@@ -17,6 +17,7 @@ jobs:
       env:
         SSH_KEY: ${{ secrets.SSH_KEY }}
         SSH_HOST: ${{ secrets.SSH_HOST }}
+      shell: bash
       run: |
         install -m 600 -D /dev/null ~/.ssh/id_rsa
         echo "$SSH_KEY" > ~/.ssh/id_rsa
