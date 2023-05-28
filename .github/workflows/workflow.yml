@@ -48,4 +48,4 @@ jobs:
             git checkout ${{ vars.MAIN_BRANCH }}
             git pull
             cd ${{ vars.BUILD_PATH }}
-            docker-compose config
+            docker-compose up --build --force-recreate -d
