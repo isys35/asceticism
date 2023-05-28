@@ -1,6 +1,6 @@
-FROM node:20
+FROM node:latest
 
-WORKDIR /asceticism
+WORKDIR /front
 
 COPY . .
 

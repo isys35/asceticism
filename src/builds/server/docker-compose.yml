@@ -26,8 +26,7 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_HOST: ${DATABASE_HOST}
       DATABASE_URL: ${DATABASE_URL}
-    ports:
-      - "8000:8000"
+      GITHUB_APP_SECRET: ${GH_APP_SECRET}
     depends_on:
       - db
     container_name: server_asceticism_back
@@ -37,11 +36,26 @@ services:
     command: >
       bash -c "npm run build"
     volumes:
-      - server_front:/asceticism/dist
-    container_name: server_asceticism_front
+      - front_dist:/front/dist
     environment:
       VITE_BACKEND_URL: ${BACKEND_URL}
+    depends_on:
+      - back
+    container_name: server_asceticism_front
+
+  proxy:
+    image: nginx
+    volumes:
+      - front_dist:/front_dist
+      - ./nginx:/etc/nginx/conf.d
+    ports:
+      - "8080:80"
+      - "8081:81"
+    depends_on:
+      - back
+      - front
 
 volumes:
   server_db:
   server_front:
+  front_dist:
