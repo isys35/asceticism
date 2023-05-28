@@ -19,6 +19,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: 22
           script: |
+            cd ${{ secrets.WORK_DIR }}
             ls
             echo "Hello"
           
