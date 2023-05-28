@@ -47,4 +47,5 @@ jobs:
             cd ${{ secrets.WORK_DIR }}
             git checkout ${{ secrets.MAIN_BRANCH }}
             git pull
-            export DATABASE_URL="$DATABASE_URL"
+            echo "I am $DATABASE_URL"
+           # export DATABASE_URL="$DATABASE_URL"
