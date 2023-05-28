@@ -23,6 +23,8 @@ jobs:
         echo "$SSH_KEY" > ~/.ssh/id_rsa
         ssh-keyscan -H "$SSH_HOST" > ~/.ssh/known_hosts
     - name: connect and pull
-      run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && git checkout ${{ secrets.MAIN_BRANCH }} && git pull && exit"
+      env:
+        SSH_URI: ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+      run: ssh "$SSH_URI" "cd ${{ secrets.WORK_DIR }} && git checkout ${{ secrets.MAIN_BRANCH }} && git pull && exit"
     - name: cleanup
       run: rm -rf ~/.ssh
