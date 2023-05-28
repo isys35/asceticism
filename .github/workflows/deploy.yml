@@ -1,8 +1,11 @@
 name: Deploy
 
 on:
-  push:
-    branches: [ "main" ]
+  workflow_run:
+    workflows: ["Bump version"]
+    types:
+      - completed
+
 
 jobs:
 
@@ -22,22 +25,3 @@ jobs:
             cd ${{ secrets.WORK_DIR }}
             git checkout ${{ secrets.MAIN_BRANCH }}
             git pull
-          
-#     - name: install ssh keys
-#       # check this thread to understand why its needed:
-#       # https://stackoverflow.com/a/70447517
-#       env:
-#         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-#         SSH_HOST: ${{ secrets.SSH_HOST }}
-#       shell: bash
-#       run: |
-#         install -m 600 -D /dev/null ~/.ssh/id_rsa
-#         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-#         ssh-keyscan -H "$SSH_HOST" > ~/.ssh/known_hosts
-#         cat ~/.ssh/id_rsa
-#     - name: connect and pull
-#       env:
-#         SSH_URI: github-asceticism@185.251.38.49
-#       run: ssh "$SSH_URI" "cd ${{ secrets.WORK_DIR }} && git checkout ${{ secrets.MAIN_BRANCH }} && git pull && exit"
-#     - name: cleanup
-#       run: rm -rf ~/.ssh
