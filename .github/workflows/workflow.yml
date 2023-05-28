@@ -44,7 +44,7 @@ jobs:
           envs: DATABASE_URL
           port: 22
           script: |
-            cd $WORK_DIR
+            cd ${{ vars.WORK_DIR }}
             git checkout ${{ secrets.MAIN_BRANCH }}
             git pull
-            cd $BUILD_PATH
+            cd ${{ vars.BUILD_PATH }}
