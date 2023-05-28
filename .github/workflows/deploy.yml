@@ -20,8 +20,8 @@ jobs:
           port: 22
           script: |
             cd ${{ secrets.WORK_DIR }}
-            ls
-            echo "Hello"
+            git checkout ${{ secrets.MAIN_BRANCH }}
+            git pull
           
 #     - name: install ssh keys
 #       # check this thread to understand why its needed:
