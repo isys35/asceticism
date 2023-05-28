@@ -1,4 +1,4 @@
-name: Bump version
+name: CI/CD
 
 on:
   push:
@@ -9,7 +9,7 @@ jobs:
   bump_version:
     if: "!startsWith(github.event.head_commit.message, 'bump:')"
     runs-on: ubuntu-latest
-    name: "Bump version and create changelog with commitizen"
+    name: Bump version and create changelog with commitizen
     steps:
       - name: Check out
         uses: actions/checkout@v3
@@ -23,8 +23,24 @@ jobs:
           cd src/backend
           poetry env use 3.11
           poetry install --only dev
-          git config --global user.email "isys35@mail.com"
+          git config --global user.email "ghbot@github.com"
           git config --global user.name GithubActionBot
           poetry run cz bump
           git push
           git push --tags
+          
+  build:
+    runs-on: ubuntu-latest
+    needs: bump_version
+    steps:
+     - name: Executing remote ssh commands using password
+       uses: appleboy/ssh-action@v0.1.10
+       with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: 22
+          script: |
+            cd ${{ secrets.WORK_DIR }}
+            git checkout ${{ secrets.MAIN_BRANCH }}
+            git pull
