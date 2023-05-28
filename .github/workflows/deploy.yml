@@ -24,7 +24,7 @@ jobs:
         ssh-keyscan -H "$SSH_HOST" > ~/.ssh/known_hosts
     - name: connect and pull
       env:
-        SSH_URI: ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+        SSH_URI: github-asceticism@185.251.38.49
       run: ssh "$SSH_URI" "cd ${{ secrets.WORK_DIR }} && git checkout ${{ secrets.MAIN_BRANCH }} && git pull && exit"
     - name: cleanup
       run: rm -rf ~/.ssh
