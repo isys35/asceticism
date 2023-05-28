@@ -26,6 +26,7 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_HOST: ${DATABASE_HOST}
       DATABASE_URL: ${DATABASE_URL}
+      GITHUB_APP_SECRET: ${GH_APP_SECRET}
     depends_on:
       - db
     container_name: server_asceticism_back
