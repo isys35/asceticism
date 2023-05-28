@@ -18,7 +18,9 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: 22
-          script: whoami
+          script: |
+            ls
+            echo "Hello"
           
 #     - name: install ssh keys
 #       # check this thread to understand why its needed:
