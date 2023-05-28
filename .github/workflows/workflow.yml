@@ -35,6 +35,8 @@ jobs:
     steps:
      - name: Executing remote ssh commands using password
        uses: appleboy/ssh-action@v0.1.10
+       env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
        with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
@@ -44,4 +46,4 @@ jobs:
             cd ${{ secrets.WORK_DIR }}
             git checkout ${{ secrets.MAIN_BRANCH }}
             git pull
-            echo $DATABASE_URL
+            export DATABASE_URL="$DATABASE_URL"
