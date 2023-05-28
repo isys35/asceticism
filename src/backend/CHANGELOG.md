@@ -1,3 +1,17 @@
+## 0.0.44 (2023-05-28)
+
+### Fix
+
+- remove nginx conf
+- add gh secret
+- nginx configuration
+- back and front nginx
+- add front nginx
+- react router nginx
+- nginx front
+- add slash
+- check nginx
+
 ## 0.0.43 (2023-05-28)
 
 ### Fix
