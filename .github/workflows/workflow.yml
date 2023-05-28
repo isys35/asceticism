@@ -41,6 +41,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
+          envs: DATABASE_URL
           port: 22
           script: |
             cd ${{ secrets.WORK_DIR }}
