@@ -1,3 +1,9 @@
+## 0.0.43 (2023-05-28)
+
+### Fix
+
+- Rename bump-version.yml to workflow.yml
+
 ## 0.0.42 (2023-05-28)
 
 ### Fix
