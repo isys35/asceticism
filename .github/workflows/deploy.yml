@@ -11,14 +11,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Run command on remote server
-        uses: D3rHase/ssh-command-action@v0.2.2
-        with:
-          host: 185.251.38.49
-          user: root
-          private_key: ${{secrets.SSH_PRIVATE_KEY}}
-          command: |
-            ls
+     - name: executing remote ssh commands using password
+       uses: appleboy/ssh-action@v0.1.10
+       with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: 22
+          script: whoami
+          
 #     - name: install ssh keys
 #       # check this thread to understand why its needed:
 #       # https://stackoverflow.com/a/70447517
